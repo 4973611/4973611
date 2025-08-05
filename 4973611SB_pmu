@@ -43,28 +43,28 @@ function saveManiChanges(manifestObj){
 
     var suiteletURL
     if(manifestObj.carrier == "Canada Post"){
-        suiteletURL = "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6170&deploy=1&compid=4973611&ns-at=AAEJ7tMQUZc_bVft7BNz9d4oYdW1aRLVyTie43NlOMhHPDa38N4"
+        suiteletURL = "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6170&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQUZc_bVft7BNz9d4oYdW1aRLVyTie43NlOMhHPDa38N4"
         // suiteletURL = ns.url.resolveScript({
         //     scriptId: "customscript_h5_sl_manifest_canada_post",
         //     deploymentId: "customdeploy_h5_sl_manifest_canada_post",
         //     returnExternalUrl: true
         // });
     }else if(manifestObj.carrier == "Purolator"){
-        suiteletURL = "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6173&deploy=1&compid=4973611&ns-at=AAEJ7tMQ3bCvbdHKZr5_tgyEX2cQRKAcXRMimjoAGtQQa5694Vo"
+        suiteletURL = "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6173&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQ3bCvbdHKZr5_tgyEX2cQRKAcXRMimjoAGtQQa5694Vo"
         // suiteletURL = ns.url.resolveScript({
         //     scriptId: "customscript_h5_sl_manifest_purolator",
         //     deploymentId: "customdeploy_h5_sl_manifest_purolator",
         //     returnExternalUrl: true
         // });
     }else if(manifestObj.carrier == "Canpar"){
-        suiteletURL = "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6171&deploy=1&compid=4973611&ns-at=AAEJ7tMQndhUK9EdmWzjIKDUwg5V5Ft7T2Wr8pdwvkmtvwEcA34"
+        suiteletURL = "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6171&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQndhUK9EdmWzjIKDUwg5V5Ft7T2Wr8pdwvkmtvwEcA34"
         // suiteletURL = ns.url.resolveScript({
         //     scriptId: "customscript_h5_sl_manifest_canpar",
         //     deploymentId: "customdeploy_h5_sl_manifest_canpar",
         //     returnExternalUrl: true
         // });
     }else if(manifestObj.carrier == "Loomis"){
-        suiteletURL = "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6172&deploy=1&compid=4973611&ns-at=AAEJ7tMQyo0K5GcfieQY3Ho-b8iSEUM-cQWb494SK3gHi1IdlsA"
+        suiteletURL = "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6172&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQyo0K5GcfieQY3Ho-b8iSEUM-cQWb494SK3gHi1IdlsA"
         // suiteletURL = ns.url.resolveScript({
         //     scriptId: "customscript_h5_sl_manifest_loomis",
         //     deploymentId: "customdeploy_h5_sl_manifest_loomis",
