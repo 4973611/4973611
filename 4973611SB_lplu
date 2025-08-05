@@ -154,7 +154,6 @@ function loadModules() {
         "http" : require('N/http'),
         "message" : require('N/ui/message'),
         "search" : require('N/search')
-      //  "h5": require('/SuiteScripts/Habit5 Scripts/H5 TMS Modules/_h5_tms_kuebix_apis.js'),
     };
 }
 
@@ -162,5 +161,6 @@ function loadModules() {
 //Globals
 
 var lineSelectedObjects = [];
+
 
 
