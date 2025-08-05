@@ -1,0 +1,1167 @@
+/**
+ *@author Habit 5 Business Services LLC
+ * @todo Contact support@habit5.com for questions
+ * @summary All of the functionality for the capitol coffee html template
+ * @description functions for buttons and different css attributes
+ **/
+$(document).ready( function () {
+    require(
+        ['N/url',
+            'N/search',
+            'N/runtime',
+            'N/ui/dialog',
+            'N/https',
+            'N/http',
+            'N/ui/message',
+        ]);
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+function loadModules() {
+    return {
+        "url": require('N/url'),
+        "search": require('N/search'),
+        "runtime": require('N/runtime'),
+        "dialog": require('N/ui/dialog'),
+        "https": require('N/https'),
+        "http": require('N/http'),
+        "message": require('N/ui/message')
+    };
+}
+
+let pageContainer = document.getElementById('pagecontainer');
+let customerName;
+let customerInternalId;
+let customerUsername
+let customerLocation;
+let shipmentData = [];
+let specificCaseData = [];
+let caseCommentArr = [];
+let caseStatusArr = [];
+let shipId
+let shipmentId
+
+
+/****************************************************** LOGIN *******************************************************************/
+
+function loginPage(){
+
+    location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+}
+
+function loginSpin(){
+    $("#loginbuttontext").hide('fast');
+    $("#loginspinner").show('fast');
+    $("#loginbutton").animate({ width: '-=100px !important' }, 300);
+    setTimeout(loginAuthorization, 700)
+}
+function loginAuthorization() {
+    ///////////ERROR HANDLING
+    let usernameError = document.getElementById('incorrectusername');
+    let usernameBox = document.getElementById('usernamebox');
+    let usernameLogo = document.getElementById('usernamelogo');
+    let passwordError = document.getElementById('incorrectpassword');
+    let passwordBox = document.getElementById('passwordbox');
+    let passwordLogo = document.getElementById('passwordlogo');
+    ////////////
+    let untrimmedUsername = document.getElementById('usernameInput').value;
+    let username = untrimmedUsername.trim();
+    let untrimmedPassword = document.getElementById('passwordInput').value;
+    let password = untrimmedPassword.trim();
+
+    console.log(username, password)
+
+    if(!Boolean(password)){
+        $("#loginbuttontext").show('fast');
+        $("#loginspinner").hide('fast');
+        passwordError.style.display = 'block';
+        passwordBox.style.border = '2px solid red';
+        passwordLogo.style.color = 'red';
+        return;
+    }
+
+    //Get Customer Name & ID
+    let objToSend = {
+        username: username,
+        password: password
+    }
+    let ns = loadModules()
+
+    var headerObj = {
+        name: "User-Agent",
+        value: "Mozilla/5.0"
+    };
+ //customscript_h5_sl_validate_user
+    let response = ns.https.post({
+        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6814&deploy=1&compid=4973611&ns-at=AAEJ7tMQ1gOnjKpt7NdkfqNsfzgRc-rO_5Q1UMw1WW2Q4OZbs-4",
+        headers: headerObj,
+        body: JSON.stringify(objToSend)
+    });
+    console.log(JSON.parse(response.body))
+    let customerData = JSON.parse(response.body);
+
+    //Validation
+    usernameError.style.display = 'none';
+    usernameBox.style.border = '';
+    usernameLogo.style.color = 'white';
+    passwordError.style.display = 'none';
+    passwordBox.style.border = '';
+    passwordLogo.style.color = 'white';
+    if(response.body == '0'){ //no username found
+        $("#loginbuttontext").show('fast');
+        $("#loginspinner").hide('fast');
+        usernameError.style.display = 'block';
+        usernameBox.style.border = '2px solid red';
+        usernameLogo.style.color = 'red';
+        return;
+    }else if(response.body == '1'){ //no portal access
+        $("#loginbuttontext").show('fast');
+        $("#loginspinner").hide('fast');
+        usernameError.style.display = 'block';
+        usernameBox.style.border = '2px solid red';
+        usernameLogo.style.color = 'red';
+        return;
+    }else if(customerData[0].password == '2'){ //error with password
+        $("#loginbuttontext").show('fast');
+        $("#loginspinner").hide('fast');
+        passwordError.style.display = 'block';
+        passwordBox.style.border = '2px solid red';
+        passwordLogo.style.color = 'red';
+        return;
+    }else { //all good "3"
+        customerInternalId = customerData[0].accessRecId
+        customerName = customerData[0].company
+        customerUsername = customerData[0].username
+        console.log(customerInternalId, customerName)
+
+        // sessionStorage.lastAction = new Date().getTime()
+        // if(Boolean(sessionStorage.lastpage)){
+        //     location.replace(sessionStorage.lastpage)
+        // }else {
+        menu(customerInternalId, customerName, customerUsername)
+        //}
+    }
+}
+
+/****************************************************** MAIN MENU *******************************************************************/
+
+function menu(customerInternalId, customerName, customerUsername){
+
+    console.log("CustId | Name | Username", customerInternalId, customerName, customerUsername)
+
+    if(!customerInternalId || !customerName || !customerUsername){
+        //no id/name/username logout user
+        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+    }else{
+        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6815&deploy=1&compid=4973611&ns-at=AAEJ7tMQQoOjgOzWB4tKKjKtgXyDkn06g84fqmCKqIdr9BU2u7Y&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername)
+    }
+
+}
+
+//Opens the script _h5_sl_render_customer_menu
+//function switchToMenu(customerInternalId, customerName){
+function switchToMenu(){
+
+    let customerInternalId = document.getElementById('customerId').innerHTML;
+    let customerName = document.getElementById('customer').innerHTML;
+    let customerUsername = document.getElementById('username').innerHTML;
+
+    console.log("CustId | Name | Username", customerInternalId, customerName, customerUsername)
+
+    if(!customerInternalId || !customerName || !customerUsername){
+        //no id/name/username logout user
+        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+    }else{
+        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6815&deploy=1&compid=4973611&ns-at=AAEJ7tMQQoOjgOzWB4tKKjKtgXyDkn06g84fqmCKqIdr9BU2u7Y&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername)
+    }
+ }
+
+/**************************************************** Search *******************************************************************/
+
+ function searchCP(){
+    let searchValue = document.getElementById('searchPortal').value;
+    console.log("customerId, customer", customerId + "|" + customer)
+    console.log("searchPortal X", searchValue)
+
+    alert(searchValue)
+
+}
+
+/**************************************************** My Profile *******************************************************************/
+
+
+function myProfile(){
+    alert("Coming soon!")
+}
+
+function logout(){
+    location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+
+}
+
+/**************************************************** Address Book *******************************************************************/
+
+function addressBook(){
+    alert("Coming soon!")
+    // let customerId = document.getElementById('customerId').innerHTML;
+    // let customer = document.getElementById('customer').innerHTML;
+    // let customerUsername = document.getElementById('username').innerHTML;
+    //
+    // console.log("customerId, customer", customerId + "|" + customer)
+    //
+    // location.replace("[ADDRESS BOOK URL]&customerName=" + customer + "&customerId=" + customerId + "&username=" + customerUsername)
+}
+
+function edit(){
+
+}
+
+function addNew(){
+
+}
+
+ /**************************************************** Ship & Rate *******************************************************************/
+
+//Opens the script _h5_sl_render_create_shipment_record
+function rateShip(){
+    let customerInternalId = document.getElementById('customerId').innerHTML;
+    let customerName = document.getElementById('customer').innerHTML;
+    let customerUsername = document.getElementById('username').innerHTML;
+
+    console.log("CustId | Name | Username", customerInternalId, customerName, customerUsername)
+
+    if(!customerInternalId || !customerName || !customerUsername){
+        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+    }else{
+        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6820&deploy=1&compid=4973611&ns-at=AAEJ7tMQ15r8SXfCL2qDL4HhsGS9qmiQpeWdq0yXgZI_3p1pnnk&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername)
+    }
+
+ }
+
+function returnToMenu(){
+    let customerInternalId = document.getElementById('customerId').innerHTML;
+    let customerName = document.getElementById('customer').innerHTML;
+    let customerUsername = document.getElementById('username').innerHTML;
+
+    console.log("CustId | Name | Username", customerInternalId, customerName, customerUsername)
+
+    if(!customerInternalId || !customerName || !customerUsername){
+        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+    }else{
+        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6815&deploy=1&compid=4973611&ns-at=AAEJ7tMQQoOjgOzWB4tKKjKtgXyDkn06g84fqmCKqIdr9BU2u7Y&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername)
+
+    }
+
+
+}
+
+function loaderAnimation(action){
+    //check required
+    let pass = checkRequiredFields()
+    console.log("pass", pass)
+    if(pass) {
+        console.log("loading animation")
+        document.getElementById("shipmentBody").style.display = 'none'
+        // document.getElementById("overlay").style.display = ''
+        document.body.style.background = '#e7e9eb'
+        document.getElementById("loader").style.display = 'inline'
+        setTimeout(sendShipDataObj, 3000, action);
+    }else{
+        alert("Missing required fields.")
+    }
+}
+
+function sendShipDataObj(action){
+    console.log("Send Ship Data", action)
+
+    let customerInternalId = document.getElementById('customerId').innerHTML;
+    let customerName = document.getElementById('customer').innerHTML;
+    let customerUsername = document.getElementById('username').innerHTML;
+
+    console.log("CustId | Name | Username", customerInternalId, customerName, customerUsername)
+
+    let shipData = {
+        //"shipmentId": document.getElementById('shipDate').value,
+        "customerId": document.getElementById('customerId').innerHTML,
+        "customer": document.getElementById('customer').innerHTML,
+        "username": document.getElementById("username").innerHTML,
+        "shipStatus": document.getElementById('shipStatus').value,
+        "shipDirection": 2,
+        "billingType": 1,//document.getElementById('shipDate').value,
+        "shipperAddId": document.getElementById('shipperId').value,
+        "shipper": document.getElementById('shipName').value,
+        "shipperAddre": document.getElementById('shipContact').value,
+        "shipperAdd1": document.getElementById('shipAddr1').value,
+        "shipperAdd2": document.getElementById('shipAddr2').value,
+        "shipperCity": document.getElementById('shipCity').value,
+        "shipperState": document.getElementById('shipState').value,
+        "shipperZip": document.getElementById('shipZip').value,
+        "shipperCountry": document.getElementById('shipCountry').value,
+        "shipContact": document.getElementById('shipContact').value,
+        "shipPhone": document.getElementById('shipPhone').value,
+        "shipFax": document.getElementById('shipFax').value,
+        "shipEmail": document.getElementById('shipEmail').value,
+        "shipperRef": document.getElementById('shipperRef').value,
+        "pickupDate": document.getElementById('pickupDate').value,
+        "pickupOpen": document.getElementById("pickupOpen").value,
+        "pickupClose": document.getElementById("pickupClose").value,
+        "consignee": document.getElementById('conName').value,
+        "conAddId": document.getElementById('consigneeId').value,
+        "conAddre": document.getElementById('conContact').value,
+        "conAdd1": document.getElementById('conAddr1').value,
+        "conAdd2": document.getElementById('conAddr2').value,
+        "conCity": document.getElementById('conCity').value,
+        "conState": document.getElementById('conState').value,
+        "conZip": document.getElementById('conZip').value,
+        "conCountry": document.getElementById('conCountry').value,
+        "conContact": document.getElementById('conContact').value,
+        "conPhone": document.getElementById('conPhone').value,
+        "conFax": document.getElementById('conFax').value,
+        "conEmail": document.getElementById('conEmail').value,
+        "conRef": document.getElementById('consigneeRef').value,
+        "pickupLocationType": document.getElementById('ltlLocType').value,
+        "insidePickup": document.getElementById('insidePickup').checked,
+        "liftgatePickup": document.getElementById('liftgatePickup').checked,
+        "protectFromFreeze": document.getElementById('protectFreeze').checked,
+        "deliveryLocationType": document.getElementById('inputGroupSelect01').value,
+        "appointment": document.getElementById('appointment').checked,
+        "insideDelivery": document.getElementById('insideDelivery').checked,
+        "liftgateDelivery": document.getElementById('liftgateDelivery').checked,
+        "hazContact": document.getElementById('hazContact').value,
+        "hazPhone": document.getElementById('hazPhone').value,
+        "bolNotes": document.getElementById('bolNotes').value,
+        "special": document.getElementById('special').value,
+        "totalHandlingUnits": document.getElementById('totalHandlingQty').innerHTML,
+        "totalWeight": document.getElementById('totalWeight').innerHTML,
+        "totalLinearFeet": document.getElementById('totalLinearFeet').innerHTML,
+        "totalCubicFeet": document.getElementById('totalCubicFeet').innerHTML,
+        "totalCubicWeight": document.getElementById('totalCubicWeight').innerHTML,
+        "totalItems": document.getElementById('totalPackageQty').innerHTML,
+        "totalValue": document.getElementById('totalValue').innerHTML,
+        "defaultShipFrom": document.getElementById('defaultShipFrom').checked,
+        "addAddressFrom": document.getElementById('addressBook').checked,
+        "defaultShipTo":document.getElementById('defaultShipTo').checked,
+        "addAddressTo": document.getElementById('addressBookCon').checked,
+        "entryMode": document.getElementById(("inputGroupSelect02")).value,
+        "workbench": document.getElementById("workbench").checked
+    }
+
+    let packageLineData = []
+    let table = document.getElementById("packageLines")
+    for(l=2; l<table.rows.length-1; l++){
+
+        let tempNewCom = ''
+        let nmfcDesc = ''
+        if(table.rows[l].children[12].children[3]){
+            console.log("tempNewCom", table.rows[l].children[12].children[3].value)
+            tempNewCom = table.rows[l].children[12].children[3].value
+        }else{
+            nmfcDesc = table.rows[l].children[12].children[0].value
+        }
+
+        packageLineData.push({
+            handlingQty: table.rows[l].children[1].children[0].value,
+            handlingPackage: table.rows[l].children[2].children[0].value,
+            stackable:table.rows[l].children[3].children[0].value,
+            weight: table.rows[l].children[4].children[0].value,
+            length: table.rows[l].children[5].children[0].value,
+            width: table.rows[l].children[6].children[0].value,
+            height: table.rows[l].children[7].children[0].value,
+            density: table.rows[l].children[8].children[0].value,
+            valueDollars: table.rows[l].children[9].children[0].value,
+            packageQty: table.rows[l].children[10].children[0].value,
+            packageType: table.rows[l].children[11].children[0].value,
+            description: nmfcDesc,
+            newCom: tempNewCom,
+            nmfc: table.rows[l].children[13].children[0].value,
+            freightClass: table.rows[l].children[14].children[0].value,
+            hazmat: table.rows[l].children[15].children[0].checked,
+            commDescId:  table.rows[l].children[17].innerHTML
+        })
+    }
+
+    console.log(packageLineData)
+    console.log("action", action)
+    if(action == 'save') {
+        console.log("saveQuote")
+        saveQuote(shipData, packageLineData)
+    }else{
+        console.log("sending data to rateShipment")
+        rateShipment(shipData, packageLineData)
+    }
+}
+
+function saveQuote(shipData, packageLineData){
+
+    let customerInternalId = document.getElementById('customerId').innerHTML;
+    let customerName = document.getElementById('customer').innerHTML;
+    let customerUsername = document.getElementById('username').innerHTML;
+
+    console.log("CustId | Name | Username", customerInternalId, customerName, customerUsername)
+
+
+    let objToSend = {
+        shipData: shipData,
+        packageLineData: packageLineData,
+        customerId: customerInternalId,
+        customerName: customerName,
+        customerUsername: customerUsername,
+        shortSave: false
+    }
+
+    console.log(objToSend)
+
+    let ns = loadModules()
+
+    var headerObj = {
+        name: "User-Agent",
+        value: "Mozilla/5.0"
+    };
+   //customscript_h5_sl_create_shipment
+    let response = ns.https.post({
+        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6817&deploy=1&compid=4973611&ns-at=AAEJ7tMQHkkrcPKVIs_eqxqpVN6FOm5o3abrFR-rg4FL__XUm0s",
+        headers: headerObj,
+        body: JSON.stringify(objToSend)
+    });
+
+    //Create & Rate Shipment and _h5_sl_render_rated_shipment_record
+    if (JSON.parse(response.body).code == 201) {
+        let message = JSON.parse(response.body).message
+        let newShipmentId = JSON.parse(response.body).newShipmentId
+        customerInternalId = JSON.parse(response.body).customerInternalId
+        customerName = JSON.parse(response.body).customerName
+        customerUsername = JSON.parse(response.body).customerUsername
+
+        console.log(newShipmentId)
+
+        if(!customerInternalId || !customerName || !customerUsername){
+            location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+        }else{
+            location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6819&deploy=1&compid=4973611&ns-at=AAEJ7tMQ388w00Hbh3BZjJfQiU8vwv27M65JqziQDmdKpfWyMuo&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername +  "&newShipmentId=" + newShipmentId)
+        }
+    } else {
+        //let shipRecError = JSON.parse(shipRec.body).message
+        alert(JSON.parse(response.body).message)
+        if(JSON.parse(response.body).newShipmentId){
+            if(!customerInternalId || !customerName || !customerUsername){
+                location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+            }else{
+                location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6819&deploy=1&compid=4973611&ns-at=AAEJ7tMQ388w00Hbh3BZjJfQiU8vwv27M65JqziQDmdKpfWyMuo&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername +  "&newShipmentId=" + newShipmentId)
+            }
+        }else {
+            document.getElementById("shipmentBody").style.display = ''
+            document.body.style.background = ''
+            document.getElementById("loader").style.display = 'none'
+        }
+        // location.reload();
+    }
+}
+
+function rateShipment(shipData, packageLineData){
+
+    console.log("rating shipment function")
+
+    let customerInternalId = document.getElementById('customerId').innerHTML;
+    let customerName = document.getElementById('customer').innerHTML;
+    let customerUsername = document.getElementById('username').innerHTML;
+
+    console.log("CustId | Name | Username", customerInternalId, customerName, customerUsername)
+
+
+    let objToSend = {
+        shipData: shipData,
+        packageLineData: packageLineData,
+        customerId: customerInternalId,
+        customerName: customerName,
+        username: customerUsername
+    }
+
+    let ns = loadModules()
+
+    var headerObj = {
+        name: "User-Agent",
+        value: "Mozilla/5.0"
+    };
+    //customscript_h5_sl_create_shipment
+    let response = ns.https.post({
+        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6817&deploy=1&compid=4973611&ns-at=AAEJ7tMQHkkrcPKVIs_eqxqpVN6FOm5o3abrFR-rg4FL__XUm0s",
+        headers: headerObj,
+        body: JSON.stringify(objToSend)
+    });
+
+    console.log(response.body)
+
+    if (JSON.parse(response.body).code == 201) {
+
+        let newShipmentId = JSON.parse(response.body).newShipmentId
+
+        console.log("newShipmentId", newShipmentId)
+
+        document.getElementById("loadingHeaderText").innerText = "retrieving rates";
+        setTimeout(rateScript, 50, newShipmentId, customerInternalId, customerName, customerUsername);
+
+    } else {
+        //let shipRecError = JSON.parse(shipRec.body).message
+        alert(JSON.parse(response.body).message)
+        document.getElementById("shipmentBody").style.display = ''
+        document.body.style.background = ''
+        document.getElementById("loader").style.display = 'none'
+        //location.reload();
+    }
+ }
+
+
+function rateScript(newShipmentId, customerId, customer, customerUsername) {
+
+    console.log("rating function")
+    console.log("customerId", customerId)
+    console.log("customer", customer)
+    console.log("username", customerUsername)
+
+    let ns = loadModules()
+
+    // let suiteletURLRates = ns.url.resolveScript({
+    //     scriptId: "customscript_h5_sl_rate_shipment",
+    //     deploymentId: "customdeploy_h5_sl_rate_shipment",
+    //     returnExternalUrl: true
+    // });
+
+    var headerObj = {
+        name: "User-Agent",
+        value: "Mozilla/5.0"
+    };
+//customscript_h5_sl_rate_shipment
+    let responseRates = ns.https.post({
+        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6818&deploy=1&compid=4973611&ns-at=AAEJ7tMQkhaYSd7efNo6GcIAQQjklUhpB63AxK1ldyZ9NwiTIr4",
+        headers: headerObj,
+        body: JSON.stringify({shipId: newShipmentId})
+    });
+
+    console.log(JSON.parse(responseRates.body).message)
+    if (JSON.parse(responseRates.body).code == 201) {
+
+        if(!customerId || !customer || !customerUsername){
+            location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+        }else{
+            location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6819&deploy=1&compid=4973611&ns-at=AAEJ7tMQ388w00Hbh3BZjJfQiU8vwv27M65JqziQDmdKpfWyMuo&customerId=" + customerId + "&customerName=" + customer + "&username=" + customerUsername + "&newShipmentId=" + newShipmentId)
+        }
+    } else {
+        //let shipRecError = JSON.parse(responseRates.body).message
+        alert("rating error")
+        document.getElementById("shipmentBody").style.display = ''
+        document.body.style.background = ''
+        document.getElementById("loader").style.display = 'none'
+        // location.reload();
+    }
+}
+
+
+
+/**************************************************** ALREADY MADE SHIPMENTS *******************************************************************/
+
+function loaderAnimationCmplt(action){
+    //check required
+    let pass = checkRequiredFields()
+    console.log("pass", pass)
+    if(pass) {
+        console.log("loading animation cmplt")
+        document.getElementById("shipmentBody").style.display = 'none'
+        console.log(document.getElementById("shipmentBody").style)
+        // document.getElementById("overlay").style.display = ''
+        document.body.style.background = '#e7e9eb'
+        document.getElementById("loader").style.display = 'inline'
+        setTimeout(sendShipDataObjCmplt, 3000, action);
+    }else{
+        alert("Missing required fields.")
+    }
+}
+
+function sendShipDataObjCmplt(action){
+    console.log("Send Ship Data", action)
+
+    let customerInternalId = document.getElementById('customerId').innerHTML;
+    let customerName = document.getElementById('customer').innerHTML;
+    let customerUsername = document.getElementById('username').innerHTML;
+
+    console.log("CustId | Name | Username", customerInternalId, customerName, customerUsername)
+
+    let shipData = {
+        "shipmentId": document.getElementById('shipmentId').innerHTML,
+        "customerId": document.getElementById('customerId').innerHTML,
+        "customer": document.getElementById('customer').innerHTML,
+        "username": document.getElementById("username").innerHTML,
+        "shipStatus": document.getElementById('shipStatus').value,
+        "shipDirection": 2,
+        "billingType": 1,//document.getElementById('shipDate').value,
+        "shipperAddId": document.getElementById('shipperId').value,
+        "shipper": document.getElementById('shipName').value,
+        "shipperAddre": document.getElementById('shipContact').value,
+        "shipperAdd1": document.getElementById('shipAddr1').value,
+        "shipperAdd2": document.getElementById('shipAddr2').value,
+        "shipperCity": document.getElementById('shipCity').value,
+        "shipperState": document.getElementById('shipState').value,
+        "shipperZip": document.getElementById('shipZip').value,
+        "shipperCountry": document.getElementById('shipCountry').value,
+        "shipContact": document.getElementById('shipContact').value,
+        "shipPhone": document.getElementById('shipPhone').value,
+        "shipFax": document.getElementById('shipFax').value,
+        "shipEmail": document.getElementById('shipEmail').value,
+        "shipperRef": document.getElementById('shipperRef').value,
+        "pickupDate": document.getElementById('pickupDate').value,
+        "pickupOpen": document.getElementById("pickupOpen").value,
+        "pickupClose": document.getElementById("pickupClose").value,
+        "consignee": document.getElementById('conName').value,
+        "conAddId": document.getElementById('consigneeId').value,
+        "conAddre": document.getElementById('conContact').value,
+        "conAdd1": document.getElementById('conAddr1').value,
+        "conAdd2": document.getElementById('conAddr2').value,
+        "conCity": document.getElementById('conCity').value,
+        "conState": document.getElementById('conState').value,
+        "conZip": document.getElementById('conZip').value,
+        "conCountry": document.getElementById('conCountry').value,
+        "conContact": document.getElementById('conContact').value,
+        "conPhone": document.getElementById('conPhone').value,
+        "conFax": document.getElementById('conFax').value,
+        "conEmail": document.getElementById('conEmail').value,
+        "conRef": document.getElementById('consigneeRef').value,
+        "pickupLocationType": document.getElementById('ltlLocType').value,
+        "insidePickup": document.getElementById('insidePickup').checked,
+        "liftgatePickup": document.getElementById('liftgatePickup').checked,
+        "protectFromFreeze": document.getElementById('protectFreeze').checked,
+        "deliveryLocationType": document.getElementById('inputGroupSelect01').value,
+        "appointment": document.getElementById('appointment').checked,
+        "insideDelivery": document.getElementById('insideDelivery').checked,
+        "liftgateDelivery": document.getElementById('liftgateDelivery').checked,
+        "hazContact": document.getElementById('hazContact').value,
+        "hazPhone": document.getElementById('hazPhone').value,
+        "bolNotes": document.getElementById('bolNotes').value,
+        "special": document.getElementById('special').value,
+        "totalHandlingUnits": document.getElementById('totalHandlingQty').innerHTML,
+        "totalWeight": document.getElementById('totalWeight').innerHTML,
+        "totalLinearFeet": document.getElementById('totalLinearFeet').innerHTML,
+        "totalCubicFeet": document.getElementById('totalCubicFeet').innerHTML,
+        "totalCubicWeight": document.getElementById('totalCubicWeight').innerHTML,
+        "totalItems": document.getElementById('totalPackageQty').innerHTML,
+        "totalValue": document.getElementById('totalValue').innerHTML,
+        "defaultShipFrom": document.getElementById('defaultShipFrom').checked,
+        "addAddressFrom": document.getElementById('addressBook').checked,
+        "defaultShipTo":document.getElementById('defaultShipTo').checked,
+        "addAddressTo": document.getElementById('addressBookCon').checked,
+        "entryMode": document.getElementById(("inputGroupSelect02")).value,
+        "rateId": document.getElementById("selectedRate").innerHTML,
+        "workbench": document.getElementById("workbench").checked
+    }
+
+    let packageLineData = []
+    let table = document.getElementById("packageLines")
+    for(l=2; l<table.rows.length-1; l++){
+
+        let tempNewCom
+
+        if(table.rows[l].children[12].children[3]){
+            console.log("tempNewCom", table.rows[l].children[12].children[3].value)
+            tempNewCom = table.rows[l].children[12].children[3].value
+        }else{
+            tempNewCom = ''
+        }
+        packageLineData.push({
+            handlingQty: table.rows[l].children[1].children[0].value,
+            handlingPackage: table.rows[l].children[2].children[0].value,
+            stackable:table.rows[l].children[3].children[0].value,
+            weight: table.rows[l].children[4].children[0].value,
+            length: table.rows[l].children[5].children[0].value,
+            width: table.rows[l].children[6].children[0].value,
+            height: table.rows[l].children[7].children[0].value,
+            density: table.rows[l].children[8].children[0].value,
+            valueDollars: table.rows[l].children[9].children[0].value,
+            packageQty: table.rows[l].children[10].children[0].value,
+            packageType: table.rows[l].children[11].children[0].value,
+            description: table.rows[l].children[12].children[0].value,
+            newCom: tempNewCom,
+            nmfc: table.rows[l].children[13].children[0].value,
+            freightClass: table.rows[l].children[14].children[0].value,
+            hazmat: table.rows[l].children[15].children[0].checked,
+            commDescId:  table.rows[l].children[17].innerHTML
+        })
+    }
+
+    console.log(packageLineData)
+    console.log("action", action)
+    if(action == 'save') {
+        console.log("save")
+        saveChangesCmplt(shipData, packageLineData)
+    }else{
+        console.log("sending data to rateShipment")
+        rateShipmentCmplt(shipData, packageLineData)
+    }
+}
+
+function rateShipmentCmplt(shipData, packageLineData){
+
+    console.log("rating shipment function")
+    let customerInternalId = document.getElementById('customerId').innerHTML;
+    let customerName = document.getElementById('customer').innerHTML;
+    let customerUsername = document.getElementById('username').innerHTML;
+
+    console.log("CustId | Name | Username", customerInternalId, customerName, customerUsername)
+
+    let objToSend = {
+        shipData: shipData,
+        packageLineData: packageLineData,
+        customerId: customerInternalId,
+        customerName: customerName,
+        username: customerUsername
+    }
+
+    let ns = loadModules()
+
+    var headerObj = {
+        name: "User-Agent",
+        value: "Mozilla/5.0"
+    };
+   ///customscript_h5_sl_save_shipment
+    let response = ns.https.post({
+        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6821&deploy=1&compid=4973611&ns-at=AAEJ7tMQrnGTD3CgD8nNEt0uIosNYpjnozJLGP3Bc8RzWydFfi4",
+        headers: headerObj,
+        body: JSON.stringify(objToSend)
+    });
+
+    console.log(response.body)
+
+    if (JSON.parse(response.body).code == 201) {
+
+        let newShipmentId = JSON.parse(response.body).newShipmentId
+        customerInternalId = JSON.parse(response.body).customerInternalId
+        customerName = JSON.parse(response.body).customerName
+        customerUsername = JSON.parse(response.body).customerUsername
+
+        console.log(newShipmentId)
+
+        document.getElementById("loadingHeaderText").innerText = "retrieving rates";
+        setTimeout(rateScriptCmplt, 50, newShipmentId, customerInternalId, customerName, customerUsername);
+
+    } else {
+        //let shipRecError = JSON.parse(shipRec.body).message
+        alert(JSON.parse(response.body).message)
+        document.getElementById("shipmentBody").style.display = ''
+        document.body.style.background = ''
+        document.getElementById("loader").style.display = 'none'
+        //location.reload();
+    }
+}
+
+function rateScriptCmplt(newShipmentId, customerId, customer, customerUsername) {
+
+    console.log("rating function")
+    console.log("customerId", customerId)
+    console.log("customer", customer)
+    console.log("username", customerUsername)
+
+    let ns = loadModules()
+
+    var headerObj = {
+        name: "User-Agent",
+        value: "Mozilla/5.0"
+    };
+   //customscript_h5_sl_rate_shipment
+    let responseRates = ns.https.post({
+        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6818&deploy=1&compid=4973611&ns-at=AAEJ7tMQkhaYSd7efNo6GcIAQQjklUhpB63AxK1ldyZ9NwiTIr4",
+        headers: headerObj,
+        body: JSON.stringify({shipId: newShipmentId})
+    });
+
+    console.log(JSON.parse(responseRates.body).message)
+    if (JSON.parse(responseRates.body).code == 201) {
+    // alert("This will get rates!")
+        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6819&deploy=1&compid=4973611&ns-at=AAEJ7tMQ388w00Hbh3BZjJfQiU8vwv27M65JqziQDmdKpfWyMuo&customerId=" + customerId + "&customerName=" + customer + "&username=" + customerUsername + "&newShipmentId=" + newShipmentId)
+    } else {
+        //let shipRecError = JSON.parse(shipRec.body).message
+        alert("Rating Error")
+        document.getElementById("shipmentBody").style.display = ''
+        document.body.style.background = ''
+        document.getElementById("loader").style.display = 'none'
+        // location.reload();
+    }
+}
+
+function saveChangesCmplt(shipData, packageLineData){
+
+    let customerInternalId = document.getElementById('customerId').innerHTML;
+    let customerName = document.getElementById('customer').innerHTML;
+    let customerUsername = document.getElementById('username').innerHTML;
+
+    console.log("CustId | Name | Username", customerInternalId, customerName, customerUsername)
+
+    let objToSend = {
+        shipData: shipData,
+        packageLineData: packageLineData,
+        customerId: customerInternalId,
+        customerName: customerName,
+        username: customerUsername
+    }
+
+    console.log(objToSend)
+
+    let ns = loadModules()
+
+    var headerObj = {
+        name: "User-Agent",
+        value: "Mozilla/5.0"
+    };
+   //_h5_sl_save_shipment
+    let response = ns.https.post({
+        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6821&deploy=1&compid=4973611&ns-at=AAEJ7tMQrnGTD3CgD8nNEt0uIosNYpjnozJLGP3Bc8RzWydFfi4",
+        headers: headerObj,
+        body: JSON.stringify(objToSend)
+    });
+
+    if (JSON.parse(response.body).code == 201) {
+        location.reload();
+
+    } else {
+        //let shipRecError = JSON.parse(shipRec.body).message
+        alert(JSON.parse(response.body).message)
+        document.getElementById("shipmentBody").style.display = ''
+        document.body.style.background = ''
+        document.getElementById("loader").style.display = 'none'
+        // location.reload();
+    }
+}
+
+/**************************************************** REQUIRED FIELD CHECK *******************************************************************/
+function checkRequiredFields(){
+    console.log("check required", document.getElementById('shipStatus').value)
+    let pass = true
+    let failMessage = ''
+    if(document.getElementById('shipStatus').value == 3 || document.getElementById('shipStatus').value == 1) {
+
+        if (!document.getElementById('shipName').value) {
+            document.getElementById('shipNameL').style.color = 'red'
+            document.getElementById('shipName').style = 'border-style: solid !important; border-width: 4px !important; border-color:red !important;'
+            pass = false
+        }else{
+            document.getElementById('shipNameL').style.color = ''
+            document.getElementById('shipName').style = ''
+        }
+        if (!document.getElementById('shipAddr1').value) {
+            document.getElementById('shipAddr1L').style.color = 'red'
+            document.getElementById('shipAddr1').style = 'border-style: solid !important; border-width: 4px !important; border-color:red !important;'
+            pass = false
+        }else{
+            document.getElementById('shipAddr1L').style.color = ''
+            document.getElementById('shipAddr1').style = ''
+        }
+        if (!document.getElementById('shipCity').value) {
+            document.getElementById('shipCityL').style.color = 'red'
+            document.getElementById('shipCity').style = 'border-style: solid !important; border-width: 4px !important; border-color:red !important;'
+            pass = false
+        }else{
+            document.getElementById('shipCityL').style.color = ''
+            document.getElementById('shipCity').style = ''
+        }
+        if (!document.getElementById('shipState').value) {
+            document.getElementById('shipStateL').style.color = 'red'
+            document.getElementById('shipState').style = 'border-style: solid !important; border-width: 4px !important; border-color:red !important;'
+            pass = false
+        }else{
+            document.getElementById('shipStateL').style.color = ''
+            document.getElementById('shipState').style = ''
+        }
+        if (!document.getElementById('conName').value) {
+            document.getElementById('conNameL').style.color = 'red'
+            document.getElementById('conName').style = 'border-style: solid !important; border-width: 4px !important; border-color:red !important;'
+            pass = false
+        }else{
+            document.getElementById('conNameL').style.color = ''
+            document.getElementById('conName').style = ''
+        }
+        if (!document.getElementById('conAddr1').value) {
+            document.getElementById('conAddr1L').style.color = 'red'
+            document.getElementById('conAddr1').style = 'border-style: solid !important; border-width: 4px !important; border-color:red !important;'
+            pass = false
+        }else{
+            document.getElementById('conAddr1L').style.color = ''
+            document.getElementById('conAddr1').style = ''
+        }
+        if (!document.getElementById('conCity').value) {
+            document.getElementById('conCityL').style.color = 'red'
+            document.getElementById('conCity').style = 'border-style: solid !important; border-width: 4px !important; border-color:red !important;'
+            pass = false
+        }else{
+            document.getElementById('conCityL').style.color = ''
+            document.getElementById('conCity').style = ''
+        }
+        if (!document.getElementById('conState').value) {
+            document.getElementById('conStateL').style.color = 'red'
+            document.getElementById('conState').style = 'border-style: solid !important; border-width: 4px !important; border-color:red !important;'
+            pass = false
+        }else{
+            document.getElementById('conStateL').style.color = ''
+            document.getElementById('conState').style = ''
+        }
+    }
+    if(document.getElementById('shipStatus').value == 3 || document.getElementById('shipStatus').value == 1 || document.getElementById('shipStatus').value == 2) {
+        if (!document.getElementById('shipZip').value) {
+            document.getElementById('shipZipL').style.color = 'red'
+            document.getElementById('shipZip').style = 'border-style: solid !important; border-width: 4px !important; border-color:red !important;'
+            pass = false
+        }else{
+            document.getElementById('shipZipL').style.color = ''
+            document.getElementById('shipZip').style = ''
+        }
+        if (!document.getElementById('conZip').value) {
+            document.getElementById('conZipL').style.color = 'red'
+            document.getElementById('conZip').style = 'border-style: solid !important; border-width: 4px !important; border-color:red !important;'
+            pass = false
+        }else{
+            document.getElementById('conZipL').style.color = ''
+            document.getElementById('conZip').style = ''
+        }
+
+        let table = document.getElementById("packageLines")
+        for(l=2; l<table.rows.length-1; l++){
+
+            //handlingQty
+            if(!table.rows[l].children[1].children[0].value){
+                table.rows[l].children[1].style = 'border-style: solid !important; border-width: 4px !important; border-color:red !important;'
+                pass = false
+            }else{
+                table.rows[l].children[1].style = ''
+            }
+
+            //handlingPackage
+            if(!table.rows[l].children[2].children[0].value){
+                table.rows[l].children[2].style = 'border-style: solid !important; border-width: 4px !important; border-color:red !important;'
+                pass = false
+            }else{
+                table.rows[l].children[2].style = ''
+            }
+
+            //weight
+            if(!table.rows[l].children[4].children[0].value){
+                table.rows[l].children[4].style = 'border-style: solid !important; border-width: 4px !important; border-color:red !important;'
+                pass = false
+            }else{
+                table.rows[l].children[4].style = ''
+            }
+
+            //commDescId
+            //if(!table.rows[l].children[17].innerHTML){
+
+                console.log("table.rows[l].children[12].children[0].value", table.rows[l].children[12].children[0].value)
+
+                //description
+                // if(!table.rows[l].children[12].children[0].children[0].value) {
+                //     table.rows[l].children[12].style = 'border-style: solid !important; border-width: 4px !important; border-color:red !important;'
+                //     pass = false
+                // }else{
+                //     table.rows[l].children[12].style = ''
+                // }
+                // //nmfc
+                // if(!table.rows[l].children[13].children[0].value){
+                //     table.rows[l].children[13].style = 'border-style: solid !important; border-width: 4px !important; border-color:red !important;'
+                //     pass = false
+                // }else{
+                //     table.rows[l].children[13].style = ''
+                // }
+                // //class
+                // if(!table.rows[l].children[14].children[0].value){
+                //     table.rows[l].children[14].style = 'border-style: solid !important; border-width: 4px !important; border-color:red !important;'
+                //     pass = false
+                // }else{
+                //     table.rows[l].children[14].style = ''
+                // }
+            // }else{
+            //     table.rows[l].children[12].style = ''
+            //     table.rows[l].children[13].style = ''
+            //     table.rows[l].children[14].style = ''
+            // }
+
+        }
+    }
+
+    return pass
+}
+
+/**************************************************** Select Rate *******************************************************************/
+
+function selectRateSpinner(id){
+    //check required
+    // let pass = checkRequiredFields()
+    // console.log("pass", pass)
+    // if(pass) {
+        console.log("loading animation")
+        document.getElementById("shipmentBody").style.display = 'none'
+        // document.getElementById("overlay").style.display = 'block'
+        document.body.style.background = '#e7e9eb'
+        document.getElementById("loader").style.display = 'inline'
+        document.getElementById("loadingHeaderText").innerText = "great choice! reserving rate!";
+        setTimeout(selectRate, 3000, id);
+    // }else{
+    //     alert("Missing required fields.")
+    // }
+}
+function selectRate(id){
+    console.log("rateId", id)
+
+    var searchParams = {
+        rateId: id,
+        shipId: document.getElementById("shipmentId").innerHTML
+    };
+    console.log(searchParams)
+
+    let ns = loadModules()
+
+    // var suiteletURL = ns.url.resolveScript({
+    //     scriptId: "customscript_h5_sl_book_get_bol",
+    //     deploymentId: "customdeploy_h5_sl_book_get_bol",
+    //     returnExternalUrl: true
+    // });
+    //
+    // var headerObj = {
+    //     name: "User-Agent",
+    //     value: "Mozilla/5.0"
+    // };
+    //
+    // var shipRec = ns.https.post({
+    //     url: suiteletURL,
+    //     body: JSON.stringify(searchParams),
+    //     headers: headerObj
+    // })
+    //
+    // if(shipRec.code == 200){
+    alert("This will book the shipment!")
+        location.reload();
+    //}
+}
+
+/**************************************************** Shipment Lists *******************************************************************/
+
+//_h5_sl_render_planning_shipments
+function planningShips(status){
+
+    let customerInternalId = document.getElementById('customerId').innerHTML;
+    let customerName = document.getElementById('customer').innerHTML;
+    let customerUsername = document.getElementById('username').innerHTML;
+
+    console.log("CustId | Name | Username", customerInternalId, customerName, customerUsername)
+
+    console.log("Status", status)
+
+    if(!customerInternalId || !customerName || !customerUsername){
+        //no id/name/username logout user
+        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+    }else{
+        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6816&deploy=1&compid=4973611&ns-at=AAEJ7tMQ_mmIUEL0pp3hwqI2Ia7sCzUG1aZXpqi5pdTCKUl568g&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername + "&shipStatus=" + status)
+    }
+
+}
+
+//_h5_sl_render_rated_shipment_record
+function goToShipment(shipmentId){
+
+    let customerId = document.getElementById('customerId').innerHTML;
+    let customer = document.getElementById('customer').innerHTML;
+    let customerUsername = document.getElementById('username').innerHTML;
+
+    console.log("customerId, customer", customerId + "|" + customer)
+
+    console.log("shipmentId", shipmentId)
+
+    location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6819&deploy=1&compid=4973611&ns-at=AAEJ7tMQ388w00Hbh3BZjJfQiU8vwv27M65JqziQDmdKpfWyMuo&customerId=" + customerId +  "&customerName=" + customer +  "&newShipmentId=" + shipmentId + "&username=" + customerUsername)
+}
+
+
+/**************************************************** Tracking *******************************************************************/
+
+
+/**************************************************** DataVerse *******************************************************************/
+
+
+/**************************************************** Address Book *******************************************************************/
+
+
+/******************************************************* MODALS *******************************************************************/
+
+let modalData = []
+
+function getShipData(shipModelData){
+    let shipId = shipModelData.id
+    console.log(shipId)
+
+    let ns = loadModules();
+
+
+    var headerObj = {
+        name: "User-Agent",
+        value: "Mozilla/5.0"
+    };
+  //customscript_h5_sl_get_shipment_data_mod
+    let response = ns.https.post({
+        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4620&deploy=1&compid=4973611&ns-at=AAEJ7tMQ6zgNYYunSlYV4lVT667gOWp9jeW4Tzh_2TIjyj4C1R0",
+        headers: headerObj,
+        body: shipId
+    });
+
+    console.log(response.body)
+
+    modalData = JSON.parse(response.body)
+
+    buildModal()
+
+}
+
+function buildModal() {
+
+    console.log("buildModal")
+    let modalContainer = document.getElementById('modalBodyContainer')
+
+    let modalBody = '<p><b>Shipment Name: </b>' + modalData[0].shipName + '</p> <p><b>Sales Orders: </b> ' + modalData[0].soId + '</p> <p><b>Ref at Pickup: </b> ' + modalData[0].pickupRef + '</p> <p><b>Carrier: </b> ' + modalData[0].carrier + '</p> <p><b>Pro Number: </b> ' + modalData[0].proNumber + '</p> <p><b>Shipment Type: </b> ' + modalData[0].shipType + '</p>'
+
+    modalContainer.innerHTML = modalBody;
+}
+
+function createWaiter() {
+    console.log("Create Waiter")
+    var waiter = {};
+    waiter.styles = '#h5bot-spin{'
+        + '  position: fixed;'
+        + '  top: 0;'
+        + '  left: 0;'
+        + '  background-color: #e7e9eb;'
+        + '  height: 100%;'
+        + '  width: 100%;'
+        + '  z-index: 100000;'
+        + '  opacity: 1.0;'
+        + '}'
+    // + '.h5bot-spin{'
+    // + '  border: 7px solid #333;'
+    // + '  -webkit-animation: spin 2s linear infinite;'
+    // + '  animation: spin 2s linear infinite;'
+    // + '  border-top: 7px solid #fff;'
+    // + '  border-radius: 50%;'
+    // + '  width: 50px;'
+    // + '  height: 50px;'
+    // + '  position: absolute;'
+    // + '  bottom: 50%;'
+    // + '  left: 45%;'
+    // + '}'
+    // + '@keyframes spin{'
+    // + '  0% { transform: rotate(0deg); }'
+    // + '  100% { transform: rotate(360deg); }'
+    // + '}';
+    waiter.id = 'h5bot-spin';
+    waiter.class = 'h5bot-spin';
+    // create HTML chunk for loader
+    var loaderHtmlElement = document.createElement('div');
+    loaderHtmlElement.id = waiter.id;
+    loaderHtmlElement.innerHTML = '<div class="' + waiter.class + '"></div>';
+    document.body.appendChild(loaderHtmlElement);
+
+    // add styles for loader
+    var loaderStyleElement = document.createElement('style');
+    loaderStyleElement.type = 'text/css';
+    loaderStyleElement.innerHTML = waiter.styles;
+    document.body.appendChild(loaderStyleElement);
+    document.getElementById('loader').style.display = 'block:none';
+}

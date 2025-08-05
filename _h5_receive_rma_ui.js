@@ -1,0 +1,108 @@
+/**
+ *@author Habit 5 Business Services LLC
+ * @todo Contact support@habit5.com for questions
+ * @summary All of the functionality for the consolidate shipments html template
+ * @description functions for buttons and different css attributes with a library of other unused functions underneath
+ **/
+$(document).ready( function () {
+    require(
+        [
+            'N/url',
+            'N/runtime',
+            'N/ui/dialog',
+            'N/https',
+            'N/http',
+            'N/ui/message',
+            'N/search',
+            'N/record'
+        ]);
+    $('[data-toggle="tooltip"]').tooltip();
+} );
+
+function loadModules() {
+    return {
+        "url" : require('N/url'),
+        "runtime" : require('N/runtime'),
+        "dialog" : require('N/ui/dialog'),
+        "https" : require('N/https'),
+        "http" : require('N/http'),
+        "message" : require('N/ui/message'),
+        "search" : require('N/search'),
+        "record": require('N/record')
+    };
+}
+
+function receive(sendObj){
+    console.log(sendObj)
+
+    let headerObj = {
+        name: "User-Agent",
+        value: "Mozilla/5.0"
+    };
+    let ns = loadModules()
+    let rec = ns.record.load({type:'customrecord_h5_config_deploy', id:1})
+    let url = rec.getValue("custrecord_h5_sl_receive_rma_url")
+    //_h5_sl_get_ship_doc
+    let response = ns.https.post({
+        url:url,
+        headers: headerObj,
+        body: JSON.stringify(sendObj)
+    });
+
+    console.log(response)
+    console.log(JSON.parse(response.body).message)
+    if (JSON.parse(response.body).code == 201) {
+        window.close()
+    } else {
+        //let shipRecError = JSON.parse(shipRec.body).message
+        alert(JSON.parse(response.body).message)
+        location.reload();
+    }
+
+}
+
+
+function createWaiter() {
+    var waiter = {};
+    waiter.styles = '#h5bot-spin{'
+        + '  position: fixed;'
+        + '  top: 0;'
+        + '  left: 0;'
+        + '  background-color: #000;'
+        + '  height: 100%;'
+        + '  width: 100%;'
+        + '  z-index: 100000;'
+        + '  opacity: 0.6;'
+        + '}'
+        + '.h5bot-spin{'
+        + '  border: 7px solid #333;'
+        + '  -webkit-animation: spin 2s linear infinite;'
+        + '  animation: spin 2s linear infinite;'
+        + '  border-top: 7px solid #fff;'
+        + '  border-radius: 50%;'
+        + '  width: 50px;'
+        + '  height: 50px;'
+        + '  position: absolute;'
+        + '  bottom: 50%;'
+        + '  left: 45%;'
+        + '}'
+        + '@keyframes spin{'
+        + '  0% { transform: rotate(0deg); }'
+        + '  100% { transform: rotate(360deg); }'
+        + '}';
+    waiter.id = 'h5bot-spin';
+    waiter.class = 'h5bot-spin';
+    // create HTML chunk for loader
+    var loaderHtmlElement = document.createElement('div');
+    loaderHtmlElement.id = waiter.id;
+    loaderHtmlElement.innerHTML = '<div class="' + waiter.class + '"></div>';
+    document.body.appendChild(loaderHtmlElement);
+
+    // add styles for loader
+    var loaderStyleElement = document.createElement('style');
+    loaderStyleElement.type = 'text/css';
+    loaderStyleElement.innerHTML = waiter.styles;
+    document.body.appendChild(loaderStyleElement);
+    document.getElementById('h5bot-spin').style.display = 'block:none';
+}
+
