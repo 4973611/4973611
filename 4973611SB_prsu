@@ -78,7 +78,7 @@ function selectShip(rateId) {
     };
 
     var shipRec = ns.https.post({
-        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6802&deploy=1&compid=4973611&ns-at=AAEJ7tMQQ9VL7Gz-IcACSc8txzA0GAaWN2EzuqHCJ2CyXpbZtfc",
+        url: "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6802&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQQ9VL7Gz-IcACSc8txzA0GAaWN2EzuqHCJ2CyXpbZtfc",
         body: JSON.stringify(inputJSON),
         headers: headerObj
     })
@@ -168,7 +168,7 @@ function submitCustoms(shipId) {
     };
 
     var shipRec = ns.https.post({
-        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6803&deploy=1&compid=4973611&ns-at=AAEJ7tMQnfRcQOKoXwltgZZG7QYk14ouzODYc8q7sjJMzqLbo4k",
+        url: "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6803&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQnfRcQOKoXwltgZZG7QYk14ouzODYc8q7sjJMzqLbo4k",
         body: JSON.stringify(customsInfo),
         headers: headerObj
     })
