@@ -57,7 +57,7 @@ function createShipmentNow(){
     };
 
     var shipRec = ns.https.post({
-        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6260&deploy=1&compid=4973611&ns-at=AAEJ7tMQa3YBCB4OlR646EW02l-ajdRpkWyZdQqXh_ZuOqihBrI",
+        url: "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6260&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQa3YBCB4OlR646EW02l-ajdRpkWyZdQqXh_ZuOqihBrI",
         body: JSON.stringify(shipObj),
         headers: headerObj
     })
@@ -65,7 +65,7 @@ function createShipmentNow(){
     console.log(shipRec)
 
     if (JSON.parse(shipRec.body).code == 201) {
-        window.open("https://4973611.app.netsuite.com/app/common/custom/custrecordentry.nl?rectype=1977&id=" + JSON.parse(shipRec.body).newShipmentId)
+        window.open("https://4973611-sb1.app.netsuite.com/app/common/custom/custrecordentry.nl?rectype=1977&id=" + JSON.parse(shipRec.body).newShipmentId)
         location.reload();
 
     } else {
@@ -158,7 +158,7 @@ function saveAndShip(){
     };
 
     var shipRec = ns.https.post({
-        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6240&deploy=1&compid=4973611&ns-at=AAEJ7tMQymwbxLhC6AaVngKhzBZ8lKZlXTM9dOXyf5O37Rb4qkU",
+        url: "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6240&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQymwbxLhC6AaVngKhzBZ8lKZlXTM9dOXyf5O37Rb4qkU",
         body: JSON.stringify(addressObj),
         headers: headerObj
     })
@@ -237,7 +237,7 @@ function saveShipment(){
     };
 
     var shipRec = ns.https.post({
-        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6240&deploy=1&compid=4973611&ns-at=AAEJ7tMQymwbxLhC6AaVngKhzBZ8lKZlXTM9dOXyf5O37Rb4qkU",
+        url: "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6240&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQymwbxLhC6AaVngKhzBZ8lKZlXTM9dOXyf5O37Rb4qkU",
         body: JSON.stringify(addressObj),
         headers: headerObj
     })
@@ -275,7 +275,7 @@ function consolidate(data){
     };
 
     let response = ns.https.post({
-        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6242&deploy=1&compid=4973611&ns-at=AAEJ7tMQIhXNw3GCSlRuVGFSriUWKk-C-sFjzu7tcaomk0CxD3M",
+        url:"https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6242&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQIhXNw3GCSlRuVGFSriUWKk-C-sFjzu7tcaomk0CxD3M",
         headers: headerObj,
         body: JSON.stringify(shipmentsToSend)
     })
@@ -283,7 +283,7 @@ function consolidate(data){
 
     console.log(temp.newShipId)
 
-    let netShipmentUrl = 'https://4973611.app.netsuite.com/app/common/custom/custrecordentry.nl?rectype=1977&id=' + temp.newShipId
+    let netShipmentUrl = 'https://4973611-sb1.app.netsuite.com/app/common/custom/custrecordentry.nl?rectype=1977&id=' + temp.newShipId
 
     window.open(netShipmentUrl)
     location.reload();
@@ -294,7 +294,7 @@ function goToShipment(shipmentId){
 
     console.log("shipmentId", shipmentId)
 
-    window.open("https://4973611.app.netsuite.com/app/common/custom/custrecordentry.nl?rectype=1977&id=" +  shipmentId)
+    window.open("https://4973611-sb1.app.netsuite.com/app/common/custom/custrecordentry.nl?rectype=1977&id=" +  shipmentId)
 }
 
 //Prints the shipping documents for shipments selected
@@ -328,7 +328,7 @@ function printDocs(shipRecIds){
     };
 
     let response = ns.https.post({
-        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6175&deploy=1&compid=4973611&ns-at=AAEJ7tMQYbbV9FKIZ0jBec8T1SlYjd9Zr-P6NT2jWCcfdikyEcA",
+        url:"https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6175&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQYbbV9FKIZ0jBec8T1SlYjd9Zr-P6NT2jWCcfdikyEcA",
         headers: headerObj,
         body: JSON.stringify(shipmentsToSend)
     })
@@ -358,7 +358,7 @@ function getShipData(shipModelData){
     };
 
     let response = ns.https.post({
-        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6239&deploy=1&compid=4973611&ns-at=AAEJ7tMQLBuVeofEKTmwNii-_Qqe76nFttmouaXFmi8vgnioImM",
+        url:"https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6239&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQLBuVeofEKTmwNii-_Qqe76nFttmouaXFmi8vgnioImM",
         headers: headerObj,
         body: shipId
     });
