@@ -13,7 +13,6 @@ $(document).ready( function () {
             'N/http',
             'N/ui/message',
             'N/search'
-            // '/SuiteScripts/Habit5 Scripts/H5 TMS Modules/_h5_tms_kuebix_apis.js'
         ]);
     $('[data-toggle="tooltip"]').tooltip();
 } );
@@ -163,4 +162,5 @@ function loadModules() {
 //Globals
 
 var lineSelectedObjects = [];
+
 
