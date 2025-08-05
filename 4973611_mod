@@ -1,0 +1,40 @@
+{
+  "ns": {
+    "name": "User-Agent",
+    "value": "Mozilla/5.0"
+  },
+  "abf": {
+    "Content-Type": "text/xml",
+    "SOAPaction": "https://www.abfs.com/xml/aquotexml.asp"
+  },
+  "avrt": {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Content-Length": "311",
+    "Host": "api.averittexpress.com"
+  },
+  "dafg": {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  },
+  "exla": {
+    "Content-Type": "text/xml",
+    "SOAPaction": "http://ws.estesexpress.com/ratequote/getQuote"
+  },
+  "rnlo": {
+    "Content-Type": "application/json"
+  },
+  "saia": {
+    "Content-Type": "text/xml; charset=utf-8",
+    "Content-Length": "length",
+    "SOAPaction": "http://www.saiasecure.com/WebService/ratequote/Create"
+  },
+  "cnwyB": {
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Accept": "application/json"
+  },
+  "cnwy": {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  }
+}
