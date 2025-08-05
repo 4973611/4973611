@@ -25,8 +25,7 @@ function loadModules() {
         "https" : require('N/https'),
         "http" : require('N/http'),
         "message" : require('N/ui/message'),
-        "search" : require('N/search'),
-        //"h5": require('/SuiteScripts/Habit5 Scripts/H5 Modules/_h5_tms_kuebix_apis.js')
+        "search" : require('N/search')
     };
 }
 
