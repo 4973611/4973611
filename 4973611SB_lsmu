@@ -19,7 +19,7 @@ $(document).ready(function () {
 
 
 function back(){
-    let url = "https://4973611.app.netsuite.com/app/site/hosting/scriptlet.nl?script=7550&deploy=1"
+    let url = "https://4973611-sb1-sb1.app.netsuite.com/app/site/hosting/scriptlet.nl?script=7550&deploy=1"
 
     location.replace(url)
 }
@@ -41,7 +41,7 @@ function renderMultiStop(){
 
     console.log(params)
 
-    let mapUrl = "https://4973611.app.netsuite.com/app/site/hosting/scriptlet.nl?script=7551&deploy=1&warehouse=" + params.warehouse + "&subsidiaries=" + params.subsidiaries
+    let mapUrl = "https://4973611-sb1.app.netsuite.com/app/site/hosting/scriptlet.nl?script=7551&deploy=1&warehouse=" + params.warehouse + "&subsidiaries=" + params.subsidiaries
 
     location.replace(mapUrl)
 
@@ -93,19 +93,19 @@ function createStops() {
         name: "User-Agent",
         value: "Mozilla/5.0"
     };
-    // let urlX = "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=7472&deploy=1&compid=4973611&ns-at=AAEJ7tMQnJVBmXA2tJZFU70L7OtltsULYyeDwyb0xTXJ0_40Eac"
+    // let urlX = "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=7472&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQnJVBmXA2tJZFU70L7OtltsULYyeDwyb0xTXJ0_40Eac"
     //
     // let responseX = nlapiRequestURL(urlX, JSON.stringify(shipmentsToSend), headerObj, 'POST');
     // console.log(responseX)
     let response = ns.https.post({
-        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=7472&deploy=1&compid=4973611&ns-at=AAEJ7tMQnJVBmXA2tJZFU70L7OtltsULYyeDwyb0xTXJ0_40Eac",
+        url: "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=7472&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQnJVBmXA2tJZFU70L7OtltsULYyeDwyb0xTXJ0_40Eac",
         headers: headerObj,
         body: JSON.stringify(shipmentsToSend)
     })
     let temp = JSON.parse(responseX.body)
     if(temp.code == 201){
         console.log(temp.newShipId)
-        let netShipmentUrl = 'https://4973611.app.netsuite.com/app/common/custom/custrecordentry.nl?rectype=1977&id=' + temp.newShipId
+        let netShipmentUrl = 'https://4973611-sb1.app.netsuite.com/app/common/custom/custrecordentry.nl?rectype=1977&id=' + temp.newShipId
         window.open(netShipmentUrl)
         location.reload();
     }else{
