@@ -1,7 +1,7 @@
 /**
  *@author Habit 5 Business Services LLC
  * @todo Contact support@habit5.com for questions
- * @summary All of the functionality for the capitol coffee html template
+ * @summary All of the functionality for the mobile shipping html template
  * @description functions for buttons and different css attributes
  **/
 $(document).ready( function () {
@@ -43,7 +43,7 @@ let shipmentId
 /****************************************************** LOGOUT *******************************************************************/
 
 function logOut(){
-    location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4530&deploy=1&compid=4973611&ns-at=AAEJ7tMQc4N_vIpiXHh7_k_x1_qgtBkrIRZNzuduALdN0FOPOJ0")
+    location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4530&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQc4N_vIpiXHh7_k_x1_qgtBkrIRZNzuduALdN0FOPOJ0")
 }
 
 /****************************************************** LOGIN *******************************************************************/
@@ -96,7 +96,7 @@ function loginAuthorization() {
     };
 
     let response = ns.https.post({
-        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4532&deploy=1&compid=4973611&ns-at=AAEJ7tMQ80Z3A7qflvWtA1reYa46dxLe2hJ__E687KtOT4UOURg",
+        url:"https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4532&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQ80Z3A7qflvWtA1reYa46dxLe2hJ__E687KtOT4UOURg",
         headers: headerObj,
         body: JSON.stringify(objToSend)
     });
@@ -143,7 +143,7 @@ function loginAuthorization() {
 function switchToMenu(locationId, employeeId){
     console.log("variables:", locationId + " | " + employeeId)
 
-     location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4540&deploy=1&compid=4973611&ns-at=AAEJ7tMQ3MLRz2V0C39yv7JG5n_QSmkcEmvki4c2jwgXEL1JIuI&locationId=" + locationId + "&employee=" + employeeId)
+     location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4540&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQ3MLRz2V0C39yv7JG5n_QSmkcEmvki4c2jwgXEL1JIuI&locationId=" + locationId + "&employee=" + employeeId)
 
 }
 
@@ -156,7 +156,7 @@ function shipments(empLocation, employeeId){
 
     console.log("empID", employeeId)
 
-     let shipmentListURL = "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4533&deploy=1&compid=4973611&ns-at=AAEJ7tMQQnn0sBPPal9X-sdaMPT6k-Lg0C1LlNelPbTuayxVg_Q&location=" + empLocation + "&employee=" + employeeId
+     let shipmentListURL = "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4533&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQQnn0sBPPal9X-sdaMPT6k-Lg0C1LlNelPbTuayxVg_Q&location=" + empLocation + "&employee=" + employeeId
 
     location.replace(shipmentListURL)
 
@@ -172,7 +172,7 @@ function bolGenerator(shipmentId){
 
     let employeeName = document.getElementById('employeeId').innerHTML;
 
-    let bolURL = 'https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4528&deploy=1&compid=4973611&ns-at=AAEJ7tMQh7En6ZYooeNtapKW4UFw1EfewV5m-TsSs0aX5x31oXk&shipId=' + shipmentId + '&locationId=' + locationId + "&employee=" + employeeName
+    let bolURL = 'https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4528&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQh7En6ZYooeNtapKW4UFw1EfewV5m-TsSs0aX5x31oXk&shipId=' + shipmentId + '&locationId=' + locationId + "&employee=" + employeeName
     window.open(bolURL)
     // location.reload()
 }
@@ -247,7 +247,7 @@ function saveSignature() {
     };
 
     var signature = ns.https.post({
-        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4527&deploy=1&compid=4973611&ns-at=AAEJ7tMQjhQHbglAdOY2fuTI-r6CLWKqyP8lvwi43pFYlJySYEU",
+        url: "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4527&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQjhQHbglAdOY2fuTI-r6CLWKqyP8lvwi43pFYlJySYEU",
         body: JSON.stringify(parameters),
         headers: headerObj
     })
@@ -267,7 +267,7 @@ function manifests(locationId, employeeName){
     console.log("locationId", locationId + " | " + employeeName)
 
 
-    location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4617&deploy=1&compid=4973611&ns-at=AAEJ7tMQ9ybCvaYD4H0Cj-mp3YRA55efsCQjrgTHqiLSvcuyjy8&locationId=" + locationId + "&employee=" + employeeName)
+    location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4617&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQ9ybCvaYD4H0Cj-mp3YRA55efsCQjrgTHqiLSvcuyjy8&locationId=" + locationId + "&employee=" + employeeName)
 
 }
 
@@ -276,7 +276,7 @@ function manifestTable(locationId, employeeName){
     console.log("locationId", locationId + " | " + employeeName)
 
 
-    location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4615&deploy=1&compid=4973611&ns-at=AAEJ7tMQuIo4cXsJeaBG_xYiQiOZEv6c4drXLVj3-06Q3Rd7rkg&locationId=" + locationId + "&employee=" + employeeName)
+    location.replace("https://4973611-sb1-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4615&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQuIo4cXsJeaBG_xYiQiOZEv6c4drXLVj3-06Q3Rd7rkg&locationId=" + locationId + "&employee=" + employeeName)
 
 }
 
@@ -284,7 +284,7 @@ function manifestTable(locationId, employeeName){
 function manifestBarcode(locationId, employeeName){
     console.log("locationId", locationId + " | " + employeeName)
 
-    location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4614&deploy=1&compid=4973611&ns-at=AAEJ7tMQHaZLN2eBHu9nUczMUZ0XVIXOxIMdwQfZ3IyW6ai-Lz0&locationId=" + locationId + "&employee=" + employeeName)
+    location.replace("https://4973611-sb1-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4614&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQHaZLN2eBHu9nUczMUZ0XVIXOxIMdwQfZ3IyW6ai-Lz0&locationId=" + locationId + "&employee=" + employeeName)
 
 }
 
@@ -292,7 +292,7 @@ function manifestBarcode(locationId, employeeName){
 function manifestList(locationId, employeeName){
     console.log("locationId", locationId + " | " + employeeName)
 
-    location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4616&deploy=1&compid=4973611&ns-at=AAEJ7tMQUE3BKwbfXl06e5gzQ_KUC3V_CQO1_dktZH0bSuSmNDQ&locationId=" + locationId + "&employee=" + employeeName)
+    location.replace("https://4973611-sb1-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4616&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQUE3BKwbfXl06e5gzQ_KUC3V_CQO1_dktZH0bSuSmNDQ&locationId=" + locationId + "&employee=" + employeeName)
 
 }
 
@@ -329,7 +329,7 @@ function addToManifest(shipmentData, trailerNumber, locationId, bolNumbers, date
     };
 
     let addToManifest = ns.https.post({
-        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4612&deploy=1&compid=4973611&ns-at=AAEJ7tMQ8eNa_YURBIPqsCnz7eNfn9GiOIgaETiWPV-3e7fmkT8",
+        url: "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4612&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQ8eNa_YURBIPqsCnz7eNfn9GiOIgaETiWPV-3e7fmkT8",
         body: JSON.stringify(parameters),
         headers: headerObj
     })
@@ -346,7 +346,7 @@ function buildManifest(shipmentData, trailerNumber, locationId, bolNumbers, date
 
     console.log(employeeName, empName)
 
-    let manifestURL = "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4618&deploy=1&compid=4973611&ns-at=AAEJ7tMQfA7kHaAcW6OyEFdeLOJ4IdX4nWU2I9dy426_2Al13-Y&shipIds=" + shipmentData + "&trailerNumber=" + trailerNumber + "&locationId=" + locationId + "&bolNumbers=" + bolNumbers + "&date=" + date  + "&employee=" + employeeName + "&empName=" + empName
+    let manifestURL = "https://4973611-sb1-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4618&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQfA7kHaAcW6OyEFdeLOJ4IdX4nWU2I9dy426_2Al13-Y&shipIds=" + shipmentData + "&trailerNumber=" + trailerNumber + "&locationId=" + locationId + "&bolNumbers=" + bolNumbers + "&date=" + date  + "&employee=" + employeeName + "&empName=" + empName
 
     window.open(manifestURL)
 
@@ -366,7 +366,7 @@ function openManifest(manifestData, locationId){
 
         console.log(manifestData[x])
 
-        let manifestURL = "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4618&deploy=1&compid=4973611&ns-at=AAEJ7tMQfA7kHaAcW6OyEFdeLOJ4IdX4nWU2I9dy426_2Al13-Y&manifestIds=" + manifestData[x] + "&locationId=" + locationId + "&bolNumbers=false&shipIds=false" + "&employee=" + employeeName
+        let manifestURL = "https://4973611-sb1-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4618&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQfA7kHaAcW6OyEFdeLOJ4IdX4nWU2I9dy426_2Al13-Y&manifestIds=" + manifestData[x] + "&locationId=" + locationId + "&bolNumbers=false&shipIds=false" + "&employee=" + employeeName
 
         window.open(manifestURL)
 
@@ -442,7 +442,7 @@ function saveManifestSignature(){
     };
 
     var signature = ns.https.post({
-        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4613&deploy=1&compid=4973611&ns-at=AAEJ7tMQug_FKRgxL_V4Px1S5wjfkLxo8xE5T1yOhwlp9zathc4",
+        url: "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4613&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQug_FKRgxL_V4Px1S5wjfkLxo8xE5T1yOhwlp9zathc4",
         body: JSON.stringify(parameters),
         headers: headerObj
     })
@@ -453,7 +453,7 @@ function saveManifestSignature(){
 
 function manifestPhotos(locationId, employeeName){
 
-    location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=5202&deploy=1&compid=4973611&ns-at=AAEJ7tMQQ-kqbga1cBtaM4XXt-iUdtKYohnqOFc7mCAKibn3tzc&locationid=" + locationId + "&employee=" + employeeName)
+    location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=5202&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQQ-kqbga1cBtaM4XXt-iUdtKYohnqOFc7mCAKibn3tzc&locationid=" + locationId + "&employee=" + employeeName)
 }
 
 function takeManifestPhoto(manifestId){
@@ -463,7 +463,7 @@ function takeManifestPhoto(manifestId){
     console.log("ManifestId | LocationId", manifestId + " | " + locationId)
     console.log("employeeName", employeeName)
 
-    let renderManiPhotoURL = "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=5203&deploy=1&compid=4973611&ns-at=AAEJ7tMQDMqGq0D5qxb6cW8psh9gH9Np1ZkDM0wRA520EZV7RsA&manifestId=" + manifestId + '&locationId=' + locationId + "&employee=" + employeeName
+    let renderManiPhotoURL = "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=5203&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQDMqGq0D5qxb6cW8psh9gH9Np1ZkDM0wRA520EZV7RsA&manifestId=" + manifestId + '&locationId=' + locationId + "&employee=" + employeeName
     location.replace(renderManiPhotoURL)
 }
 
@@ -503,7 +503,7 @@ function saveManiPhoto(data, photoNum){
     };
 
     let photo = ns.https.post({
-        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=5205&deploy=1&compid=4973611&ns-at=AAEJ7tMQPHhjYudtPLuzjvd0L6R-dxnlPDxFkkqfoX-Y7gME9_E",
+        url: "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=5205&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQPHhjYudtPLuzjvd0L6R-dxnlPDxFkkqfoX-Y7gME9_E",
         body: JSON.stringify(parameters),
         headers: headerObj
     })
@@ -551,7 +551,7 @@ function deleteManiPhotos(manifestId){
     };
 
     let photoDelete = ns.https.post({
-        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=5204&deploy=1&compid=4973611&ns-at=AAEJ7tMQqfMZKLD_sRQHc-DkvwPS1sb2NQwzAkk9RSnSD26aEsY",
+        url: "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=5204&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQqfMZKLD_sRQHc-DkvwPS1sb2NQwzAkk9RSnSD26aEsY",
         body: JSON.stringify(parameters),
         headers: headerObj
     })
@@ -564,7 +564,7 @@ function deleteManiPhotos(manifestId){
 function multiStopList(locationId, employeeName){
     console.log("locationId", locationId + " | " + employeeName)
 
-    location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=7481&deploy=1&compid=4973611&ns-at=AAEJ7tMQZnNfYFE508I_s058szldU0FXp7Dz6AW3VAx2biQoO9I&locationId=" + locationId + "&employee=" + employeeName)
+    location.replace("https://4973611_SB1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=7481&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQZnNfYFE508I_s058szldU0FXp7Dz6AW3VAx2biQoO9I&locationId=" + locationId + "&employee=" + employeeName)
 
 }
 
@@ -573,7 +573,7 @@ function openMultiStop(multiStopData){
 
     let locationId = document.getElementById("locationId").innerHTML
     let employee = document.getElementById("employeeName").innerHTML
-    let manifestURL = "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=7482&deploy=1&compid=4973611&ns-at=AAEJ7tMQOUr3JOsHahawfHeWXXXODxiKHIJSQTtBXOd73XR8v5s&multiStopId=" + multiStopData + "&locationId=" + locationId + "&employee=" + employee
+    let manifestURL = "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=7482&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQOUr3JOsHahawfHeWXXXODxiKHIJSQTtBXOd73XR8v5s&multiStopId=" + multiStopData + "&locationId=" + locationId + "&employee=" + employee
 
     window.open(manifestURL)
 
@@ -620,7 +620,7 @@ function saveMultiStopSignature(){
     };
 
     var signature = ns.https.post({
-        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=7483&deploy=1&compid=4973611&ns-at=AAEJ7tMQYFXp8tIm376zGITU2KAiYYNUy5o0ll2sdgG35lSb-dc",
+        url: "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=7483&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQYFXp8tIm376zGITU2KAiYYNUy5o0ll2sdgG35lSb-dc",
         body: JSON.stringify(parameters),
         headers: headerObj
     })
@@ -638,7 +638,7 @@ function shipDocPrinter(locationId, employeeName){
     console.log("employeeName", employeeName)
 
 
-    let printingURL = "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4535&deploy=1&compid=4973611&ns-at=AAEJ7tMQ2hcA4AtqwN4uCD6vz-TktOFjnM6xI9QMq6kXe9IOHAE&locationid=" + locationId + "&employee=" + employeeName
+    let printingURL = "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4535&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQ2hcA4AtqwN4uCD6vz-TktOFjnM6xI9QMq6kXe9IOHAE&locationid=" + locationId + "&employee=" + employeeName
 
     location.replace(printingURL)
 
@@ -676,7 +676,7 @@ function printDocs(shipRecIds){
     };
 
     let response = ns.https.post({
-        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4265&deploy=1&compid=4973611&ns-at=AAEJ7tMQ5ycUfiw54zfXouc3j_02MewnA2Qmh-IAdxNO9geC7Gw",
+        url: "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4265&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQ5ycUfiw54zfXouc3j_02MewnA2Qmh-IAdxNO9geC7Gw",
         headers: headerObj,
         body: JSON.stringify(shipmentsToSend)
     })
@@ -692,7 +692,7 @@ function shipmentPictures(warehouseLocation, employeeName){
     console.log("Warehouse Location", warehouseLocation)
     console.log("employeeName", employeeName)
 
-    let shipmentPhotoListURL = "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4534&deploy=1&compid=4973611&ns-at=AAEJ7tMQb7u0Ukd_mX5I2otGHIey7ZRgOYIZ2kEMQwK8oGwOyGk&warehouselocation=" + warehouseLocation + "&employee=" + employeeName
+    let shipmentPhotoListURL = "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4534&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQb7u0Ukd_mX5I2otGHIey7ZRgOYIZ2kEMQwK8oGwOyGk&warehouselocation=" + warehouseLocation + "&employee=" + employeeName
 
     location.replace(shipmentPhotoListURL)
 
@@ -708,7 +708,7 @@ function takePhotos(shipmentId){
     console.log("ShipmentId | LocationId", shipmentId + " | " + locationId)
     console.log("employeeName", employeeName)
 
-    let renderShipPhotoURL = "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4538&deploy=1&compid=4973611&ns-at=AAEJ7tMQmV4GUIXqifzhaslmXD80Ea6PmjNc41G7AcbLKL-djQo&shipmentId=" + shipmentId + '&locationId=' + locationId + "&employee=" + employeeName
+    let renderShipPhotoURL = "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4538&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQmV4GUIXqifzhaslmXD80Ea6PmjNc41G7AcbLKL-djQo&shipmentId=" + shipmentId + '&locationId=' + locationId + "&employee=" + employeeName
     location.replace(renderShipPhotoURL)
 }
 
@@ -748,7 +748,7 @@ function savePhoto(data, photoNum){
     };
 
     let photo = ns.https.post({
-        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4539&deploy=1&compid=4973611&ns-at=AAEJ7tMQd0Te3Diz4NbmdUXF3W3ZAiWmYr18_b75InW9ooWjbNU",
+        url: "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4539&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQd0Te3Diz4NbmdUXF3W3ZAiWmYr18_b75InW9ooWjbNU",
         body: JSON.stringify(parameters),
         headers: headerObj
     })
@@ -796,7 +796,7 @@ function deletePhotos(shipId){
     };
 
     let photoDelete = ns.https.post({
-        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4621&deploy=1&compid=4973611&ns-at=AAEJ7tMQsfYkEuhqdXYLA7MzH0givQQVQtjAK1JBbh23sBTmtvc",
+        url: "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4621&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQsfYkEuhqdXYLA7MzH0givQQVQtjAK1JBbh23sBTmtvc",
         body: JSON.stringify(parameters),
         headers: headerObj
     })
@@ -812,7 +812,7 @@ function bolSearch(locationId, employeeName){
     console.log("employeeName", employeeName)
 
 
-    location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=5201&deploy=1&compid=4973611&ns-at=AAEJ7tMQB2tCk_GcBJvHfJgmqi7HHEJUCLsvzKx8OMHayzM3y0I&locationId=" + locationId + "&employee=" + employeeName)
+    location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=5201&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQB2tCk_GcBJvHfJgmqi7HHEJUCLsvzKx8OMHayzM3y0I&locationId=" + locationId + "&employee=" + employeeName)
 }
 
 function searchSpin(){
@@ -851,7 +851,7 @@ function searchBOL(){
     };
 
     let response = ns.https.post({
-        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=5200&deploy=1&compid=4973611&ns-at=AAEJ7tMQW3jQHFYEHHEN0cMHFYtBS8-7E6Ypn8SOGTJMj4hwEKM",
+        url:"https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=5200&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQW3jQHFYEHHEN0cMHFYtBS8-7E6Ypn8SOGTJMj4hwEKM",
         headers: headerObj,
         body: JSON.stringify(objToSend)
     });
@@ -884,7 +884,7 @@ function openBOL(shipmentId, locationId, employeeName){
 
     console.log("shipmentId", shipmentId)
 
-    let bolURL = 'https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4528&deploy=1&compid=4973611&ns-at=AAEJ7tMQh7En6ZYooeNtapKW4UFw1EfewV5m-TsSs0aX5x31oXk&shipId=' + shipmentId + '&locationId=' + locationId + "&employee=" + employeeName
+    let bolURL = 'https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4528&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQh7En6ZYooeNtapKW4UFw1EfewV5m-TsSs0aX5x31oXk&shipId=' + shipmentId + '&locationId=' + locationId + "&employee=" + employeeName
     window.open(bolURL)
     location.reload()
 }
@@ -897,7 +897,7 @@ function section321(locationId, employeeName){
     console.log("employeeName", employeeName)
 
 
-    let sectionURL = "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6796&deploy=1&compid=4973611&ns-at=AAEJ7tMQ-DwGZ54Ri74IPwUW6Dc4uDQuS49U8aFyoNIWmggOwLo&locationid=" + locationId + "&employee=" + employeeName
+    let sectionURL = "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6796&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQ-DwGZ54Ri74IPwUW6Dc4uDQuS49U8aFyoNIWmggOwLo&locationid=" + locationId + "&employee=" + employeeName
 
     location.replace(sectionURL)
 
@@ -948,7 +948,7 @@ function create321(){
     };
 
     let response = ns.https.post({
-        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6795&deploy=1&compid=4973611&ns-at=AAEJ7tMQTREpFpqHRAV-f_rNxQHfMPnjfMlcQej3gVvkqtv_XwE",
+        url:"https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6795&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQTREpFpqHRAV-f_rNxQHfMPnjfMlcQej3gVvkqtv_XwE",
         headers: headerObj,
         body: JSON.stringify(sendObj)
     });
@@ -989,7 +989,7 @@ function getShipData(shipModelData){
     };
 
     let response = ns.https.post({
-        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4620&deploy=1&compid=4973611&ns-at=AAEJ7tMQ6zgNYYunSlYV4lVT667gOWp9jeW4Tzh_2TIjyj4C1R0",
+        url:"https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4620&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQ6zgNYYunSlYV4lVT667gOWp9jeW4Tzh_2TIjyj4C1R0",
         headers: headerObj,
         body: shipId
     });
