@@ -1,0 +1,172 @@
+/**
+ *@author Habit 5 Business Services LLC
+ * @todo Contact support@habit5.com for questions
+ * @summary All of the functionality for the consolidate shipments html template
+ * @description functions for buttons and different css attributes with a library of other unused functions underneath
+ **/
+$(document).ready( function () {
+    require(
+        ['N/url',
+            'N/runtime',
+            'N/ui/dialog',
+            'N/https',
+            'N/http',
+            'N/ui/message',
+            'N/search'
+        ]);
+    $('[data-toggle="tooltip"]').tooltip();
+} );
+
+function loadModules() {
+    return {
+        "url" : require('N/url'),
+        "runtime" : require('N/runtime'),
+        "dialog" : require('N/ui/dialog'),
+        "https" : require('N/https'),
+        "http" : require('N/http'),
+        "message" : require('N/ui/message'),
+        "search" : require('N/search'),
+        "h5": require('/SuiteScripts/Habit5 Scripts/H5 Modules/_h5_tms_kuebix_apis.js')
+    };
+}
+
+function spinner(){
+    let submitSpinner = document.getElementById('spinnerreloads');
+    submitSpinner.style.visibility = 'visible';
+}
+
+function carrierSpin(){
+    spinner();
+    setTimeout(selectAndBookRate, 30);
+    //setTimeout(clientFieldChanged, 50);
+}
+
+var lineSelectedObjects = [];
+
+function selectAndBookRate() {
+    console.log("Select Rate Button Pushed")
+    var ns = loadModules();
+    console.log(ns)
+
+    let user = document.getElementById("userId").innerHTML
+
+    var searchParams = {
+        rateId: lineSelectedObjects[0],
+        user: user
+    };
+    console.log(searchParams)
+
+    // var suiteletURL = ns.url.resolveScript({
+    //     scriptId: "customscript_h5_sl_select_parcel",
+    //     deploymentId: "customdeploy_h5_sl_select_parcel",
+    //     returnExternalUrl: true
+    // });
+
+    var headerObj = {
+        name: "User-Agent",
+        value: "Mozilla/5.0"
+    };
+
+    var shipRec = ns.https.post({
+        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6205&deploy=1&compid=4973611&ns-at=AAEJ7tMQj73envEQZD7BLLk6jRonTWcEtTk390VNh1wwcXSZT_o",
+        body: JSON.stringify(searchParams),
+        headers: headerObj
+    })
+    console.log(shipRec)
+    console.log(searchParams)
+    if (JSON.parse(shipRec.body).code == 201) {
+        window.close()
+
+    } else {
+        //let shipRecError = JSON.parse(shipRec.body).message
+        alert(JSON.parse(shipRec.body).message)
+        location.reload();
+    }
+}
+
+//shows dropdown of carriers available to choose rate
+function carriers() {
+
+    let tableId = document.getElementById('results');
+    let dropDownId = document.getElementById('carrierList');
+    //let resetValue = document.getElementById('reset');
+    let dropDownValue = dropDownId.options[document.getElementById('carrierList').selectedIndex].innerHTML;
+
+    let tableRows = tableId.rows
+    for(i=0; i<tableRows.length; i++){
+        let tempRow = tableId.rows[i];
+        if(tempRow.children[1].innerHTML == dropDownValue || dropDownValue == '-'){
+            tempRow.style.display = "";
+        }
+        else{tempRow.style.display = "none";}
+    }
+}
+
+function changeColor(row){
+    let firstInput = row.getElementsByTagName('input')[0];
+    let tableRows = document.getElementById('results').rows;
+
+    for (let x=0; x < tableRows.length; x++){
+        tableRows[x].style.backgroundColor = "";
+    }
+
+    if(firstInput.checked){
+        row.style.backgroundColor = 'lightgreen';
+    } else {
+        row.style.backgroundColor = '';
+    }
+}
+
+function selectRow(row) {
+    console.log(row)
+    let firstInput = row.getElementsByTagName('input')[0];
+    firstInput.checked = !firstInput.checked;
+
+    if (firstInput.checked) {
+        row.style.backgroundColor = 'lightgreen';
+
+        linesSelected.push(firstInput.id);
+
+        var checkboxes = document.getElementsByName('check')
+        checkboxes.forEach((item) => {
+            if (item !== checkbox) item.checked = false
+        })
+
+    }
+    else {
+        row.style = '';
+
+        let result = lineSelectedObjects.findIndex(obj => {
+            return obj.rowId === firstInput.id
+        })
+        linesSelected.splice(result, 1);
+    }
+    console.log(linesSelected)
+
+}
+
+$("input:checkbox").on('click', function() {
+    // in the handler, 'this' refers to the box clicked on
+    var $box = $(this);
+    if ($box.is(":checked")) {
+        // the name of the box is retrieved using the .attr() method
+        // as it is assumed and expected to be immutable
+        var group = "input:checkbox[name='" + $box.attr("name") + "']";
+        // the checked state of the group/box on the other hand will change
+        // and the current value is retrieved using .prop() method
+        $(group).prop("checked", false);
+        $box.prop("checked", true);
+    } else {
+        $box.prop("checked", false);
+    }
+
+    let rateId = $box.attr("value")
+    console.log(rateId)
+    if(Boolean($box.attr("value"))){
+        lineSelectedObjects = [rateId]
+        console.log(lineSelectedObjects)
+    }
+});
+
+
+
