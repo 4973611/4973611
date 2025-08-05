@@ -46,7 +46,7 @@ let shipmentId
 
 function loginPage(){
 
-    location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+    location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
 }
 
 function loginSpin(){
@@ -93,7 +93,7 @@ function loginAuthorization() {
     };
  //customscript_h5_sl_validate_user
     let response = ns.https.post({
-        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6814&deploy=1&compid=4973611&ns-at=AAEJ7tMQ1gOnjKpt7NdkfqNsfzgRc-rO_5Q1UMw1WW2Q4OZbs-4",
+        url:"https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6814&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQ1gOnjKpt7NdkfqNsfzgRc-rO_5Q1UMw1WW2Q4OZbs-4",
         headers: headerObj,
         body: JSON.stringify(objToSend)
     });
@@ -151,9 +151,9 @@ function menu(customerInternalId, customerName, customerUsername){
 
     if(!customerInternalId || !customerName || !customerUsername){
         //no id/name/username logout user
-        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+        location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
     }else{
-        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6815&deploy=1&compid=4973611&ns-at=AAEJ7tMQQoOjgOzWB4tKKjKtgXyDkn06g84fqmCKqIdr9BU2u7Y&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername)
+        location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6815&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQQoOjgOzWB4tKKjKtgXyDkn06g84fqmCKqIdr9BU2u7Y&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername)
     }
 
 }
@@ -170,9 +170,9 @@ function switchToMenu(){
 
     if(!customerInternalId || !customerName || !customerUsername){
         //no id/name/username logout user
-        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+        location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
     }else{
-        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6815&deploy=1&compid=4973611&ns-at=AAEJ7tMQQoOjgOzWB4tKKjKtgXyDkn06g84fqmCKqIdr9BU2u7Y&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername)
+        location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6815&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQQoOjgOzWB4tKKjKtgXyDkn06g84fqmCKqIdr9BU2u7Y&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername)
     }
  }
 
@@ -195,7 +195,7 @@ function myProfile(){
 }
 
 function logout(){
-    location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+    location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
 
 }
 
@@ -231,9 +231,9 @@ function rateShip(){
     console.log("CustId | Name | Username", customerInternalId, customerName, customerUsername)
 
     if(!customerInternalId || !customerName || !customerUsername){
-        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+        location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
     }else{
-        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6820&deploy=1&compid=4973611&ns-at=AAEJ7tMQ15r8SXfCL2qDL4HhsGS9qmiQpeWdq0yXgZI_3p1pnnk&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername)
+        location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6820&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQ15r8SXfCL2qDL4HhsGS9qmiQpeWdq0yXgZI_3p1pnnk&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername)
     }
 
  }
@@ -246,9 +246,9 @@ function returnToMenu(){
     console.log("CustId | Name | Username", customerInternalId, customerName, customerUsername)
 
     if(!customerInternalId || !customerName || !customerUsername){
-        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+        location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
     }else{
-        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6815&deploy=1&compid=4973611&ns-at=AAEJ7tMQQoOjgOzWB4tKKjKtgXyDkn06g84fqmCKqIdr9BU2u7Y&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername)
+        location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6815&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQQoOjgOzWB4tKKjKtgXyDkn06g84fqmCKqIdr9BU2u7Y&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername)
 
     }
 
@@ -419,7 +419,7 @@ function saveQuote(shipData, packageLineData){
     };
    //customscript_h5_sl_create_shipment
     let response = ns.https.post({
-        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6817&deploy=1&compid=4973611&ns-at=AAEJ7tMQHkkrcPKVIs_eqxqpVN6FOm5o3abrFR-rg4FL__XUm0s",
+        url:"https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6817&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQHkkrcPKVIs_eqxqpVN6FOm5o3abrFR-rg4FL__XUm0s",
         headers: headerObj,
         body: JSON.stringify(objToSend)
     });
@@ -435,18 +435,18 @@ function saveQuote(shipData, packageLineData){
         console.log(newShipmentId)
 
         if(!customerInternalId || !customerName || !customerUsername){
-            location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+            location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
         }else{
-            location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6819&deploy=1&compid=4973611&ns-at=AAEJ7tMQ388w00Hbh3BZjJfQiU8vwv27M65JqziQDmdKpfWyMuo&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername +  "&newShipmentId=" + newShipmentId)
+            location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6819&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQ388w00Hbh3BZjJfQiU8vwv27M65JqziQDmdKpfWyMuo&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername +  "&newShipmentId=" + newShipmentId)
         }
     } else {
         //let shipRecError = JSON.parse(shipRec.body).message
         alert(JSON.parse(response.body).message)
         if(JSON.parse(response.body).newShipmentId){
             if(!customerInternalId || !customerName || !customerUsername){
-                location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+                location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
             }else{
-                location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6819&deploy=1&compid=4973611&ns-at=AAEJ7tMQ388w00Hbh3BZjJfQiU8vwv27M65JqziQDmdKpfWyMuo&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername +  "&newShipmentId=" + newShipmentId)
+                location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6819&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQ388w00Hbh3BZjJfQiU8vwv27M65JqziQDmdKpfWyMuo&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername +  "&newShipmentId=" + newShipmentId)
             }
         }else {
             document.getElementById("shipmentBody").style.display = ''
@@ -484,7 +484,7 @@ function rateShipment(shipData, packageLineData){
     };
     //customscript_h5_sl_create_shipment
     let response = ns.https.post({
-        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6817&deploy=1&compid=4973611&ns-at=AAEJ7tMQHkkrcPKVIs_eqxqpVN6FOm5o3abrFR-rg4FL__XUm0s",
+        url:"https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6817&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQHkkrcPKVIs_eqxqpVN6FOm5o3abrFR-rg4FL__XUm0s",
         headers: headerObj,
         body: JSON.stringify(objToSend)
     });
@@ -532,7 +532,7 @@ function rateScript(newShipmentId, customerId, customer, customerUsername) {
     };
 //customscript_h5_sl_rate_shipment
     let responseRates = ns.https.post({
-        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6818&deploy=1&compid=4973611&ns-at=AAEJ7tMQkhaYSd7efNo6GcIAQQjklUhpB63AxK1ldyZ9NwiTIr4",
+        url: "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6818&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQkhaYSd7efNo6GcIAQQjklUhpB63AxK1ldyZ9NwiTIr4",
         headers: headerObj,
         body: JSON.stringify({shipId: newShipmentId})
     });
@@ -541,9 +541,9 @@ function rateScript(newShipmentId, customerId, customer, customerUsername) {
     if (JSON.parse(responseRates.body).code == 201) {
 
         if(!customerId || !customer || !customerUsername){
-            location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+            location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
         }else{
-            location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6819&deploy=1&compid=4973611&ns-at=AAEJ7tMQ388w00Hbh3BZjJfQiU8vwv27M65JqziQDmdKpfWyMuo&customerId=" + customerId + "&customerName=" + customer + "&username=" + customerUsername + "&newShipmentId=" + newShipmentId)
+            location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6819&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQ388w00Hbh3BZjJfQiU8vwv27M65JqziQDmdKpfWyMuo&customerId=" + customerId + "&customerName=" + customer + "&username=" + customerUsername + "&newShipmentId=" + newShipmentId)
         }
     } else {
         //let shipRecError = JSON.parse(responseRates.body).message
@@ -721,7 +721,7 @@ function rateShipmentCmplt(shipData, packageLineData){
     };
    ///customscript_h5_sl_save_shipment
     let response = ns.https.post({
-        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6821&deploy=1&compid=4973611&ns-at=AAEJ7tMQrnGTD3CgD8nNEt0uIosNYpjnozJLGP3Bc8RzWydFfi4",
+        url:"https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6821&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQrnGTD3CgD8nNEt0uIosNYpjnozJLGP3Bc8RzWydFfi4",
         headers: headerObj,
         body: JSON.stringify(objToSend)
     });
@@ -765,7 +765,7 @@ function rateScriptCmplt(newShipmentId, customerId, customer, customerUsername) 
     };
    //customscript_h5_sl_rate_shipment
     let responseRates = ns.https.post({
-        url: "https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6818&deploy=1&compid=4973611&ns-at=AAEJ7tMQkhaYSd7efNo6GcIAQQjklUhpB63AxK1ldyZ9NwiTIr4",
+        url: "https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6818&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQkhaYSd7efNo6GcIAQQjklUhpB63AxK1ldyZ9NwiTIr4",
         headers: headerObj,
         body: JSON.stringify({shipId: newShipmentId})
     });
@@ -773,7 +773,7 @@ function rateScriptCmplt(newShipmentId, customerId, customer, customerUsername) 
     console.log(JSON.parse(responseRates.body).message)
     if (JSON.parse(responseRates.body).code == 201) {
     // alert("This will get rates!")
-        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6819&deploy=1&compid=4973611&ns-at=AAEJ7tMQ388w00Hbh3BZjJfQiU8vwv27M65JqziQDmdKpfWyMuo&customerId=" + customerId + "&customerName=" + customer + "&username=" + customerUsername + "&newShipmentId=" + newShipmentId)
+        location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6819&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQ388w00Hbh3BZjJfQiU8vwv27M65JqziQDmdKpfWyMuo&customerId=" + customerId + "&customerName=" + customer + "&username=" + customerUsername + "&newShipmentId=" + newShipmentId)
     } else {
         //let shipRecError = JSON.parse(shipRec.body).message
         alert("Rating Error")
@@ -810,7 +810,7 @@ function saveChangesCmplt(shipData, packageLineData){
     };
    //_h5_sl_save_shipment
     let response = ns.https.post({
-        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6821&deploy=1&compid=4973611&ns-at=AAEJ7tMQrnGTD3CgD8nNEt0uIosNYpjnozJLGP3Bc8RzWydFfi4",
+        url:"https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6821&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQrnGTD3CgD8nNEt0uIosNYpjnozJLGP3Bc8RzWydFfi4",
         headers: headerObj,
         body: JSON.stringify(objToSend)
     });
@@ -1050,9 +1050,9 @@ function planningShips(status){
 
     if(!customerInternalId || !customerName || !customerUsername){
         //no id/name/username logout user
-        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
+        location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6813&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQNkbrRhT6kq_vvUNqQbl9Nik17O95Rvt7hJSWLkjtfZk")
     }else{
-        location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6816&deploy=1&compid=4973611&ns-at=AAEJ7tMQ_mmIUEL0pp3hwqI2Ia7sCzUG1aZXpqi5pdTCKUl568g&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername + "&shipStatus=" + status)
+        location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6816&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQ_mmIUEL0pp3hwqI2Ia7sCzUG1aZXpqi5pdTCKUl568g&customerName=" + customerName + "&customerId=" + customerInternalId + "&username=" + customerUsername + "&shipStatus=" + status)
     }
 
 }
@@ -1068,7 +1068,7 @@ function goToShipment(shipmentId){
 
     console.log("shipmentId", shipmentId)
 
-    location.replace("https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6819&deploy=1&compid=4973611&ns-at=AAEJ7tMQ388w00Hbh3BZjJfQiU8vwv27M65JqziQDmdKpfWyMuo&customerId=" + customerId +  "&customerName=" + customer +  "&newShipmentId=" + shipmentId + "&username=" + customerUsername)
+    location.replace("https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=6819&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQ388w00Hbh3BZjJfQiU8vwv27M65JqziQDmdKpfWyMuo&customerId=" + customerId +  "&customerName=" + customer +  "&newShipmentId=" + shipmentId + "&username=" + customerUsername)
 }
 
 
@@ -1098,7 +1098,7 @@ function getShipData(shipModelData){
     };
   //customscript_h5_sl_get_shipment_data_mod
     let response = ns.https.post({
-        url:"https://4973611.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4620&deploy=1&compid=4973611&ns-at=AAEJ7tMQ6zgNYYunSlYV4lVT667gOWp9jeW4Tzh_2TIjyj4C1R0",
+        url:"https://4973611-sb1.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=4620&deploy=1&compid=4973611_SB1&ns-at=AAEJ7tMQ6zgNYYunSlYV4lVT667gOWp9jeW4Tzh_2TIjyj4C1R0",
         headers: headerObj,
         body: shipId
     });
