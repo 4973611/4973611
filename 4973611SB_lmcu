@@ -1,7 +1,7 @@
 /**
  *@author Habit 5 Business Services LLC
  * @todo Contact support@habit5.com for questions
- * @summary All of the functionality for the consolidate shipments html template
+ * @summary All of the functionality for the consolidate multistop html template
  * @description functions for buttons and different css attributes with a library of other unused functions underneath
  **/
 $(document).ready(function () {
@@ -74,7 +74,7 @@ function createStops() {
     let temp = JSON.parse(response.body)
     if(temp.code == 201){
         console.log(temp.newShipId)
-        let netShipmentUrl = 'https://4973611.app.netsuite.com/app/common/custom/custrecordentry.nl?rectype=1977&id=' + temp.newShipId
+        let netShipmentUrl = 'https://4973611-sb1.app.netsuite.com/app/common/custom/custrecordentry.nl?rectype=1977&id=' + temp.newShipId
         window.open(netShipmentUrl)
         location.reload();
     }else{
@@ -145,3 +145,4 @@ function createWaiter() {
     document.body.appendChild(loaderStyleElement);
     document.getElementById('h5bot-spin').style.display = 'block:none';
 }
+
