@@ -99,7 +99,7 @@ function consShipSelected(data){
     console.log("temp", temp)
     if(temp.code == 201){
         console.log(temp.newShipId)
-        let netShipmentUrl = 'https://4973611.app.netsuite.com/app/common/custom/custrecordentry.nl?rectype=1977&id=' + temp.newShipId
+        let netShipmentUrl = 'https://4973611-sb1.app.netsuite.com/app/common/custom/custrecordentry.nl?rectype=1977&id=' + temp.newShipId
         window.open(netShipmentUrl)
         location.reload();
     }else{
@@ -126,5 +126,6 @@ function loadModules() {
 //Globals
 
 var lineSelectedObjects = [];
+
 
 
