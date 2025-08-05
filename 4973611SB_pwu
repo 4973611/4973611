@@ -190,7 +190,7 @@ function goToShipment(shipmentId){
 
     console.log("shipmentId", shipmentId)
 
-    window.open("https://4973611.app.netsuite.com/app/common/custom/custrecordentry.nl?rectype=1977&id=" +  shipmentId)
+    window.open("https://4973611-sb1.app.netsuite.com/app/common/custom/custrecordentry.nl?rectype=1977&id=" +  shipmentId)
 }
 
 //Prints the shipping documents for shipments selected
